@@ -21,6 +21,7 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/index.ts | pino-pretty -c -t",
     "schemas": "json2ts -i src/schemas -o types",
-    "db:generate": "concurrently \"cd ..\"  \"prisma generate\""
+    "db:generate": "concurrently \"cd ..\"  \"prisma generate\"",
+    "db:migrate:dev": "prisma migrate dev"
   }
 }

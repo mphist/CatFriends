@@ -10,28 +10,38 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  username    String   @unique @db.VarChar(16)
+  displayname String   @db.VarChar(50)
+  photoUrl    String   @db.VarChar(255)
+  isVerified  Boolean  @default(false)
+  postalCode  String   @db.VarChar(10)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  profile     Profile?
+  cat         Cat?
 }
 
 model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  id       String @id @default(uuid())
+  provider String @db.VarChar(20)
+  socialId String @unique
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String @unique
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+model Cat {
+  id         String   @id @default(uuid())
+  name       String   @db.VarChar(50)
+  gender     String   @db.VarChar(6)
+  age        Int
+  breed      String   @db.VarChar(30)
+  vaccinated Boolean  @default(false)
+  postalCode String   @db.VarChar(10)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  owner      User     @relation(fields: [ownerId], references: [id])
+  ownerId    String   @unique
 }
