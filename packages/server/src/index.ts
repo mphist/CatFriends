@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 prisma
   .$connect()
   .then(async () => {
-    const server = new Server()
+    const server = new Server(prisma)
     await server.start()
   })
   .catch((e) => console.log(e))

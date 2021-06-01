@@ -1,0 +1,20 @@
+{
+  "title": "Create User Body",
+  "type": "object",
+  "properties": {
+    "email": { "type": "string" },
+    "username": { "type": "string" },
+    "displayname": { "type": "string" },
+    "photoUrl": { "type": "string" },
+    "isVerified": { "type": "boolean" },
+    "postalCode": { "type": "string" }
+  },
+  "required": [
+    "email",
+    "username",
+    "displayname",
+    "photoUrl",
+    "isVerified",
+    "postalCode"
+  ]
+}

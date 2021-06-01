@@ -1,0 +1,22 @@
+{
+  "title": "Cat Register Body",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "gender": { "type": "string" },
+    "age": { "type": "number" },
+    "breed": { "type": "string" },
+    "description": { "type": "string" },
+    "vaccinated": { "type": "boolean" },
+    "postalCode": { "type": "string" }
+  },
+  "required": [
+    "name",
+    "gender",
+    "age",
+    "breed",
+    "description",
+    "vaccinated",
+    "postalCode"
+  ]
+}
