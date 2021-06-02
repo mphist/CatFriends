@@ -11,6 +11,5 @@ export interface CreateUserBody {
   displayname: string;
   photoUrl: string;
   isVerified: boolean;
-  postalCode: string;
   [k: string]: unknown;
 }

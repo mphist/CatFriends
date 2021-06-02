@@ -6,15 +6,7 @@
     "username": { "type": "string" },
     "displayname": { "type": "string" },
     "photoUrl": { "type": "string" },
-    "isVerified": { "type": "boolean" },
-    "postalCode": { "type": "string" }
+    "isVerified": { "type": "boolean" }
   },
-  "required": [
-    "email",
-    "username",
-    "displayname",
-    "photoUrl",
-    "isVerified",
-    "postalCode"
-  ]
+  "required": ["email", "username", "displayname", "photoUrl", "isVerified"]
 }

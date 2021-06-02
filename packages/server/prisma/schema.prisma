@@ -17,7 +17,6 @@ model User {
   displayname String   @db.VarChar(50)
   photoUrl    String   @db.VarChar(255)
   isVerified  Boolean  @default(false)
-  postalCode  String   @db.VarChar(10)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   profile     Profile?

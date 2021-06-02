@@ -16,8 +16,7 @@ const userRoute: FastifyPluginCallback = (fastify, options, done) => {
       },
     },
     async (request, reply) => {
-      const { email, username, displayname, photoUrl, isVerified, postalCode } =
-        request.body
+      const { email, username, displayname, photoUrl } = request.body
 
       // save a new user in db
       try {
@@ -27,12 +26,10 @@ const userRoute: FastifyPluginCallback = (fastify, options, done) => {
             username,
             displayname,
             photoUrl,
-            isVerified,
-            postalCode,
           },
         })
 
-        reply.send('User was created successfully')
+        reply.status(200).send('User was created successfully')
       } catch (e) {
         console.log(e)
       }
