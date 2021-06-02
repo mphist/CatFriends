@@ -15,7 +15,7 @@ export default class Server {
   }
 
   start() {
-    return this.app.listen(5000)
+    return this.app.listen(4000)
   }
 
   close() {

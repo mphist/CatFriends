@@ -1,6 +1,6 @@
-import { PrismaClient } from '.prisma/client'
 import Server from './Server'
 import dotenv from 'dotenv'
+import { PrismaClient } from '.prisma/client'
 
 dotenv.config()
 
@@ -12,4 +12,4 @@ prisma
     const server = new Server(prisma)
     await server.start()
   })
-  .catch((e) => console.log(e))
+  .catch((e: any) => console.log(e))
