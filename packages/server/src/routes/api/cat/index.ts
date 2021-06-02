@@ -1,5 +1,6 @@
 import { FastifyPluginCallback } from 'fastify'
 import { CatRegisterBody } from '../../../../types/Cat/CatRegister/body'
+import { CatSearchBody } from '../../../../types/Cat/CatSearch/body'
 import CatRegisterBodySchema from '../../../schemas/Cat/CatRegister/body.json'
 
 const catRoute: FastifyPluginCallback = (fastify, options, done) => {
@@ -44,6 +45,33 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
       }
     }
   )
+
+  /* 
+    POST /api/cat/search
+    Search cats for adoption
+  */
+
+  fastify.post<{ Body: CatSearchBody }>('/search', async (request, reply) => {
+    const { postalCode, gender, age, breed } = request.body
+
+    try {
+      const res = await fastify.prisma.cat.findMany({
+        where: { postalCode, gender, age, breed },
+        include: {
+          owner: {
+            select: {
+              displayname: true,
+              photoUrl: true,
+            },
+          },
+        },
+      })
+      reply.send(res)
+    } catch (e) {
+      console.log(e)
+    }
+  })
+
   done()
 }
 
