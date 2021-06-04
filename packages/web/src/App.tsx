@@ -2,6 +2,7 @@ import { css, Global } from '@emotion/react'
 import { BrowserRouter } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
 import Header from './components/Header'
+import Poster from './components/Poster'
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
         <AppLayout.Header>
           <Header />
         </AppLayout.Header>
-        {/* <AppLayout.Main></AppLayout.Main> */}
+        <AppLayout.Main>
+          <Poster />
+        </AppLayout.Main>
         <Global styles={styles} />
       </AppLayout>
     </BrowserRouter>

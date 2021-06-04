@@ -26,6 +26,7 @@ const signin = css`
 const navigation = css`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 30rem;
   a {
     text-decoration: none;
@@ -40,6 +41,8 @@ const header = css`
   justify-content: space-between;
   padding: 1rem;
   position: fixed;
+  top: 0;
+  z-index: 4;
   height: 1rem;
   width: 100%;
 `

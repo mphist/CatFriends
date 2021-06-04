@@ -1,3 +1,5 @@
+import { css } from '@emotion/react'
+
 type AppLayoutProps = {
   children: React.ReactNode
 }
@@ -9,9 +11,13 @@ export function AppLayout({ children }: AppLayoutProps) {
 }
 
 AppLayout.Header = ({ children }: AppLayoutHeaderProps) => {
-  return <header>{children}</header>
+  return <header css={header}>{children}</header>
 }
 
 AppLayout.Main = ({ children }: AppLayoutMainProps) => {
   return <main>{children}</main>
 }
+
+const header = css`
+  height: 3rem;
+`
