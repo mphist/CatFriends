@@ -1,2 +1,5 @@
 export { default as paws_left } from './paws_left.svg'
 export { default as paws_right } from './paws_right.svg'
+export { default as paw } from './paw.svg'
+export { default as two_cats } from './two_cats.svg'
+export { default as nala } from './nala.svg'

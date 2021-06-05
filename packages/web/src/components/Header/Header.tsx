@@ -9,9 +9,9 @@ export default function Header({}: HeaderProps) {
     <div css={header}>
       <Logo />
       <div css={navigation}>
-        <Link to='/foradopt'>Find a Home</Link>
-        <Link to='/adopt'>Find a Cat</Link>
-        <Link to='/contact'>Contact</Link>
+        <Link to="/foradopt">Find a Home</Link>
+        <Link to="/adopt">Find a Cat</Link>
+        <Link to="/contact">Contact</Link>
       </div>
 
       <div css={signin}>Sign In</div>
@@ -45,4 +45,5 @@ const header = css`
   z-index: 4;
   height: 1rem;
   width: 100%;
+  background: white;
 `
