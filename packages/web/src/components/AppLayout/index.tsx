@@ -19,5 +19,5 @@ AppLayout.Main = ({ children }: AppLayoutMainProps) => {
 }
 
 const header = css`
-  height: 3rem;
+  height: 10rem;
 `

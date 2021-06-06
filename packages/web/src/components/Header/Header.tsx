@@ -9,12 +9,12 @@ export default function Header({}: HeaderProps) {
     <div css={header}>
       <Logo />
       <div css={navigation}>
-        <Link to="/foradopt">Find a Home</Link>
-        <Link to="/adopt">Find a Cat</Link>
-        <Link to="/contact">Contact</Link>
+        <div css={navMenu}>
+          <Link to="/foradopt">Find a Home</Link>
+          <Link to="/adopt">Find a Cat</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
       </div>
-
-      <div css={signin}>Sign In</div>
     </div>
   )
 }
@@ -23,27 +23,30 @@ const signin = css`
   width: 6rem;
 `
 
-const navigation = css`
+const navMenu = css`
+  margin: 0 auto;
+  width: 30rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 30rem;
+`
+
+const navigation = css`
+  margin: 0 auto;
+  width: 100%;
+  height: 3rem;
   a {
     text-decoration: none;
     color: black;
   }
+  background: #eeecec;
 `
 
 const header = css`
-  border-bottom: 2px solid;
-  border-color: #d3d1d1;
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  z-index: 4;
-  height: 1rem;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   background: white;
+  height: 10rem;
 `

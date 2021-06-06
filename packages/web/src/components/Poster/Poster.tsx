@@ -71,7 +71,7 @@ const posterTop = css`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 4rem 0;
+  /* margin: 4rem 0; */
   border-bottom: 2px solid;
   border-color: #d3d1d1;
 `
