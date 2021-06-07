@@ -10,9 +10,15 @@ export default function Header({}: HeaderProps) {
       <Logo />
       <div css={navigation}>
         <div css={navMenu}>
-          <Link to="/foradopt">Find a Home</Link>
-          <Link to="/adopt">Find a Cat</Link>
-          <Link to="/contact">Contact</Link>
+          <span>
+            <Link to="/foradopt">Find a Home</Link>
+          </span>
+          <span>
+            <Link to="/adopt">Find a Cat</Link>
+          </span>
+          <span>
+            <Link to="/contact">Contact</Link>
+          </span>
         </div>
       </div>
     </div>
@@ -29,6 +35,10 @@ const navMenu = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  span {
+    width: 10rem;
+    text-align: center;
+  }
 `
 
 const navigation = css`

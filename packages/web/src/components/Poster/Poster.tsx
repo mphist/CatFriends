@@ -1,32 +1,87 @@
 import { css } from '@emotion/react'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { paw, paws_left, paws_right, two_cats } from '../../assets/images'
+import { customHTMLDivElement, useEffect, useRef, useState } from 'react'
 
 export type PosterProps = {}
 
 function Poster({}: PosterProps) {
-  return (
-    <div css={posterTop}>
-      <div css={left}>
-        <img id="left" src={paw} alt="paw" />
-        <img id="right" src={paw} alt="paw" />
-        <img id="bottom" src={paw} alt="paw" />
+  const [color, setColor] = useState('')
+  const [initialRender, setInitialRender] = useState(false)
+  const ref = useRef<customHTMLDivElement>(null)
 
-        <div css={text}>
-          <h2>Need to find a home for your furry friends?</h2>
-          <h2>Want to find your purry companion?</h2>
-          <br />
-          <h2>
-            <strong>Sign up</strong> to see cats nearby
-          </h2>
-          <h2>or get yours a new home!</h2>
+  useEffect(() => {
+    console.log('setting it true')
+    ref.current!.initialRender = true
+  }, [])
+
+  const settings = {
+    dots: true,
+    autoplay: true,
+    fade: true,
+    autoplaySpeed: 5000,
+    // infinite: true,
+    speed: 1000,
+    // slidesToShow: 1,
+    // slidesToScroll: 1,
+    onInit: () => {
+      setColor('lightblue')
+      console.log(ref.current)
+    },
+    beforeChange: () => {
+      if (ref.current) {
+        ref.current.initialRender = false
+      }
+      if (color === 'lightblue') setColor('pink')
+      if (color === 'pink') setColor('lightblue')
+    },
+  }
+
+  return (
+    <div ref={ref} css={posterBlock(color, !!ref.current?.initialRender)}>
+      <Slider {...settings}>
+        <div css={posterTop('lightblue')}>
+          <div css={left}>
+            <div css={text}>
+              <h1>Need to find a home for your furry friends?</h1>
+            </div>
+          </div>
+          <div css={right}>
+            <img src={two_cats} alt="two_cats" />
+          </div>
         </div>
-      </div>
-      <div css={right}>
-        <img src={two_cats} alt="two_cats" />
-      </div>
+        <div css={posterTop('pink')}>
+          <div css={left}>
+            <div css={text}>
+              <h1>Want to find your purry companion?</h1>
+            </div>
+          </div>
+          <div css={right}>
+            <img src={two_cats} alt="two_cats" />
+          </div>
+        </div>
+      </Slider>
     </div>
   )
 }
+
+declare module 'react' {
+  interface customHTMLDivElement extends HTMLDivElement {
+    initialRender: boolean
+  }
+}
+
+const posterBlock = (color: string, initialRender: boolean) => css`
+  padding: 2rem;
+  background: ${color};
+  ${initialRender
+    ? ''
+    : css`
+        transition: background 1s;
+      `}
+`
 
 const right = css`
   img {
@@ -34,46 +89,22 @@ const right = css`
   }
 `
 
-const left = css`
-  position: relative;
-  img {
-    position: absolute;
-    width: 3rem;
-  }
-  #left {
-    left: -3rem;
-    top: 8rem;
-    transform: rotate(-40deg);
-  }
-  #right {
-    left: 33rem;
-    top: 3rem;
-    transform: rotate(20deg);
-  }
-  #bottom {
-    left: 13rem;
-    top: 16rem;
-  }
-`
+const left = css``
 
 const text = css`
-  text-align: center;
+  font-family: citcat;
+  color: white;
+  letter-spacing: 1px;
   h2 {
-    font-weight: lighter;
-    letter-spacing: 0.5px;
-    strong {
-      color: #77c7f5;
-    }
+    margin: 0;
   }
 `
 
-const posterTop = css`
-  display: flex;
+const posterTop = (color: string) => css`
+  display: flex !important;
   justify-content: space-evenly;
   align-items: center;
-  /* margin: 4rem 0; */
-  border-bottom: 2px solid;
-  border-color: #d3d1d1;
+  background: ${color};
 `
 
 export default Poster

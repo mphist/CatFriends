@@ -30,6 +30,11 @@ const styles = css`
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   }
+
+  @font-face {
+    font-family: citcat;
+    src: local('fonts/CITCAT.ttf');
+  }
 `
 
 export default App
