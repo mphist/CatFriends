@@ -3,21 +3,13 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { kittens, side_cat, two_cats } from '../../assets/images'
-import { customHTMLDivElement, useEffect, useRef, useState } from 'react'
 
 export type PosterProps = {}
 
 function Poster({}: PosterProps) {
-  const [color, setColor] = useState('')
-  // const ref = useRef<customHTMLDivElement>(null)
-
-  // useEffect(() => {
-  //   ref.current!.initialRender = true
-  // }, [])
-
   const settings = {
     // dots: true,
-    // autoplay: true,
+    autoplay: true,
     // fade: true,
     autoplaySpeed: 5000,
     arrows: false,
@@ -40,17 +32,16 @@ function Poster({}: PosterProps) {
   }
 
   return (
-    // <div ref={ref} css={posterBlock(color, !!ref.current?.initialRender)}>
     <Slider {...settings}>
       <div css={posterTop('#7ECAE0')}>
         <div css={left}>
           <div css={text}>
-            <h1>Need to find a home for</h1>
+            <h1>Looking for a home for</h1>
             <h1>your furry friends?</h1>
           </div>
         </div>
         <div css={right}>
-          <img src={two_cats} alt="two_cats" />
+          <img id="twoCats" src={two_cats} alt="two_cats" />
         </div>
       </div>
       <div css={posterTop('#EEB3B5')}>
@@ -77,25 +68,8 @@ function Poster({}: PosterProps) {
         </div>
       </div>
     </Slider>
-    // </div>
   )
 }
-
-declare module 'react' {
-  interface customHTMLDivElement extends HTMLDivElement {
-    initialRender: boolean
-  }
-}
-
-// const posterBlock = (color: string, initialRender: boolean) => css`
-//   padding: 2rem;
-//   background: ${color};
-//   ${initialRender
-//     ? ''
-//     : css`
-//         transition: background 1s;
-//       `}
-// `
 
 const right = css`
   img {
