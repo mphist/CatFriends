@@ -40,6 +40,7 @@ const textSection = css`
 `
 
 const card = css`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;

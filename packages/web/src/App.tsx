@@ -32,8 +32,8 @@ const styles = css`
   }
 
   @font-face {
-    font-family: citcat;
-    src: local('fonts/CITCAT.ttf');
+    font-family: chelseaMarket;
+    src: url('fonts/ChelseaMarket-Regular.ttf');
   }
 `
 

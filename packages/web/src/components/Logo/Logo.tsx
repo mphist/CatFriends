@@ -12,7 +12,7 @@ export default function Logo({}: LogoProps) {
 }
 
 const logo = css`
-  height: 10rem;
+  height: 17rem;
   margin: 0 auto;
   margin-top: 1rem;
 `

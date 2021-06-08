@@ -35,6 +35,7 @@ const navMenu = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 3rem;
   span {
     width: 10rem;
     text-align: center;
@@ -42,7 +43,7 @@ const navMenu = css`
 `
 
 const navigation = css`
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 100%;
   height: 3rem;
   a {
@@ -58,5 +59,5 @@ const header = css`
   justify-content: center;
   width: 100%;
   background: white;
-  height: 10rem;
+  height: 16rem;
 `

@@ -19,6 +19,7 @@ export default function Cats({}: CatsProps) {
 }
 
 const catsBlock = css`
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
