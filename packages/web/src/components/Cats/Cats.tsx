@@ -1,6 +1,8 @@
 import { css } from '@emotion/react'
 import { doris, nala, snow, lazy, cotton } from '../../assets/images'
 import Card from '../Card'
+import CatProfile from '../CatProfile'
+import Modal from '../Modal'
 
 type CatsProps = {}
 
@@ -18,24 +20,31 @@ export default function Cats({}: CatsProps) {
   //   </div>
   // )
 
+  const onClick = () => {}
+
   return (
-    <div css={catsGrid}>
-      <img src={nala} alt="nala" />
-      <img src={doris} alt="doris" />
-      <img src={snow} alt="snow" />
-      <img src={lazy} alt="lazy" />
-      <img src={cotton} alt="cotton" />
-      <img src={nala} alt="nala" />
-      <img src={doris} alt="doris" />
-      <img src={snow} alt="snow" />
-      <img src={lazy} alt="lazy" />
-      <img src={cotton} alt="cotton" />
-      <img src={nala} alt="nala" />
-      <img src={doris} alt="doris" />
-      <img src={snow} alt="snow" />
-      <img src={lazy} alt="lazy" />
-      <img src={cotton} alt="cotton" />
-      <img src={nala} alt="nala" />
+    <div css={catsBlock}>
+      <div css={catsGrid}>
+        <img src={nala} alt="nala" onClick={onClick} />
+        <img src={doris} alt="doris" onClick={onClick} />
+        <img src={snow} alt="snow" onClick={onClick} />
+        <img src={lazy} alt="lazy" onClick={onClick} />
+        <img src={cotton} alt="cotton" onClick={onClick} />
+        <img src={nala} alt="nala" onClick={onClick} />
+        <img src={doris} alt="doris" onClick={onClick} />
+        <img src={snow} alt="snow" onClick={onClick} />
+        <img src={lazy} alt="lazy" onClick={onClick} />
+        <img src={cotton} alt="cotton" onClick={onClick} />
+        <img src={nala} alt="nala" onClick={onClick} />
+        <img src={doris} alt="doris" onClick={onClick} />
+        <img src={snow} alt="snow" onClick={onClick} />
+        <img src={lazy} alt="lazy" onClick={onClick} />
+        <img src={cotton} alt="cotton" onClick={onClick} />
+        <img src={nala} alt="nala" onClick={onClick} />
+      </div>
+      <Modal>
+        <CatProfile />
+      </Modal>
     </div>
   )
 }
@@ -49,15 +58,20 @@ const catsGrid = css`
     width: 14.8rem;
     height: 14.8rem;
     object-fit: cover;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.5;
+    }
   }
 `
 
 const catsBlock = css`
   margin-top: 3rem;
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
 `
 
 const cats = css`
