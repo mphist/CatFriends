@@ -1,5 +1,5 @@
 import { css, Global } from '@emotion/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
 import Cats from './components/Cats'
 import Header from './components/Header'
@@ -10,16 +10,24 @@ function App() {
   return (
     <RecoilRoot>
       <BrowserRouter>
-        <AppLayout>
-          <AppLayout.Header>
-            <Header />
-          </AppLayout.Header>
-          <AppLayout.Main>
-            <Poster />
-            <Cats />
-          </AppLayout.Main>
-          <Global styles={styles} />
-        </AppLayout>
+        <Switch>
+          <AppLayout>
+            <Route path={['/', '/foradopt', '/adopt', '/contact']} exact>
+              <AppLayout.Header>
+                <Header />
+              </AppLayout.Header>
+            </Route>
+            <AppLayout.Main>
+              <Route path={['/', '/foradopt', '/adopt']} exact>
+                <Poster />
+              </Route>
+              <Route path="/" exact>
+                <Cats />
+              </Route>
+            </AppLayout.Main>
+            <Global styles={styles} />
+          </AppLayout>
+        </Switch>
       </BrowserRouter>
     </RecoilRoot>
   )
