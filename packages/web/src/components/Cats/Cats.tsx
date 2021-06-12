@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import { doris, nala, snow, lazy, cotton } from '../../assets/images'
-import Card from '../Card'
+import { useModalState } from '../../atoms/modal'
 import CatProfile from '../CatProfile'
 import Modal from '../Modal'
 
@@ -20,7 +20,11 @@ export default function Cats({}: CatsProps) {
   //   </div>
   // )
 
-  const onClick = () => {}
+  const [showModal, setShowModal] = useModalState()
+
+  const onClick = () => {
+    setShowModal(true)
+  }
 
   return (
     <div css={catsBlock}>
@@ -42,7 +46,7 @@ export default function Cats({}: CatsProps) {
         <img src={cotton} alt="cotton" onClick={onClick} />
         <img src={nala} alt="nala" onClick={onClick} />
       </div>
-      <Modal>
+      <Modal show={showModal}>
         <CatProfile />
       </Modal>
     </div>

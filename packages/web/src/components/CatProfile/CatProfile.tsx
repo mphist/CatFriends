@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { doris, nala } from '../../assets/images'
+import { doris } from '../../assets/images'
 
 type CatProfileProps = {}
 
@@ -7,10 +7,10 @@ export default function CatProfile({}: CatProfileProps) {
   return (
     <div css={catProfile}>
       <div css={imageSection}>
-        <img src={doris} alt='doris' />
+        <img src={doris} alt="doris" />
       </div>
       <div css={textSection}>
-        <h2>Nala</h2>
+        <h2>Doris</h2>
         <br />
         <p>
           <strong>Age:</strong> {`3 months old`}
@@ -37,8 +37,10 @@ export default function CatProfile({}: CatProfileProps) {
 
 const imageSection = css`
   width: 50%;
+  text-align: center;
   img {
-    width: 30rem;
+    width: 40rem;
+    object-fit: cover;
   }
 `
 

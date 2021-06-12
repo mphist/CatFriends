@@ -4,21 +4,24 @@ import { AppLayout } from './components/AppLayout'
 import Cats from './components/Cats'
 import Header from './components/Header'
 import Poster from './components/Poster'
+import { RecoilRoot } from 'recoil'
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppLayout>
-        <AppLayout.Header>
-          <Header />
-        </AppLayout.Header>
-        <AppLayout.Main>
-          <Poster />
-          <Cats />
-        </AppLayout.Main>
-        <Global styles={styles} />
-      </AppLayout>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <AppLayout>
+          <AppLayout.Header>
+            <Header />
+          </AppLayout.Header>
+          <AppLayout.Main>
+            <Poster />
+            <Cats />
+          </AppLayout.Main>
+          <Global styles={styles} />
+        </AppLayout>
+      </BrowserRouter>
+    </RecoilRoot>
   )
 }
 
