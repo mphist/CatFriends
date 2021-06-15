@@ -37,6 +37,7 @@ model Cat {
   gender      String   @db.VarChar(6)
   age         Int
   breed       String   @db.VarChar(30)
+  spayed_neutered Boolean 
   description String   @db.Text
   vaccinated  Boolean  @default(false)
   postalCode  String   @db.VarChar(10)

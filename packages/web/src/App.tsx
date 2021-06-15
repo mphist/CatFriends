@@ -1,10 +1,11 @@
 import { css, Global } from '@emotion/react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
+import { RecoilRoot } from 'recoil'
 import Cats from './components/Cats'
 import Header from './components/Header'
 import Poster from './components/Poster'
-import { RecoilRoot } from 'recoil'
+import ForAdopt from './pages/ForAdopt/ForAdopt'
 
 function App() {
   return (
@@ -18,11 +19,13 @@ function App() {
               </AppLayout.Header>
             </Route>
             <AppLayout.Main>
-              <Route path={['/', '/foradopt', '/adopt']} exact>
-                <Poster />
-              </Route>
-              <Route path="/" exact>
+              <Route path={'/'} exact>
+                <Poster slide={true} />
                 <Cats />
+              </Route>
+              <Route path="/foradopt">
+                <Poster slide={false} type="forAdopt" />
+                <ForAdopt />
               </Route>
             </AppLayout.Main>
             <Global styles={styles} />
