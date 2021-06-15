@@ -66,8 +66,8 @@ const description = css`
   height: 13rem !important;
   textarea {
     height: 100% !important;
-    border: 2px solid gray;
-    border-radius: 0.5rem;
+    border: 1px solid gray;
+    /* border-radius: 0.5rem; */
     padding: 0.5rem;
     font-size: 1.2rem;
     &:focus {
@@ -128,11 +128,12 @@ const forAdopt = css`
         font-size: 1.2rem;
         width: 25rem;
         padding: 0.5rem;
+        /* border: none; */
         &:focus {
           outline: none;
         }
-        border-radius: 0.5rem;
-        border: 2px solid gray;
+        /* border-radius: 0.5rem; */
+        border: 1px solid gray;
       }
     }
   }
