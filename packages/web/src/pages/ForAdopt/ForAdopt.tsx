@@ -1,19 +1,64 @@
 import { css } from '@emotion/react'
+import { useEffect, useRef, useState } from 'react'
 
 type ForAdoptProps = {}
 
 export default function ForAdopt({}: ForAdoptProps) {
+  const [name, setName] = useState('')
+  const [breed, setBreed] = useState('')
+  const [age, setAge] = useState('')
+  const [postalCode, setPostalCode] = useState('')
+  const [vaccination, setVaccination] = useState<string | undefined>(undefined)
+  const [gender, setGender] = useState<string | undefined>(undefined)
+  const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
+  const [catDescription, setCatDescription] = useState('')
+  const [validationPassed, setValidationPassed] = useState(false)
+
+  useEffect(() => {
+    console.log(vaccination)
+    if (
+      name &&
+      breed &&
+      age &&
+      postalCode &&
+      vaccination &&
+      gender &&
+      spayNeuter &&
+      catDescription
+    )
+      setValidationPassed(true)
+    else setValidationPassed(false)
+  }, [
+    name,
+    breed,
+    age,
+    postalCode,
+    vaccination,
+    gender,
+    spayNeuter,
+    catDescription,
+  ])
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('submitted')
+  }
   return (
     <div css={forAdopt}>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="gridBox">
           <div>
             <label>Name of your cat:</label>
-            <input />
+            <input value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
             <label>Breed of your cat:</label>
-            <select name="breed" id="breed">
+            <select
+              name="breed"
+              id="breed"
+              value={breed}
+              onChange={(e) => setBreed(e.target.value)}
+            >
               <option value="" selected disabled hidden>
                 Choose...
               </option>
@@ -82,46 +127,89 @@ export default function ForAdopt({}: ForAdoptProps) {
           </div>
           <div>
             <label>Age of your cat:</label>
-            <input /* placeholder="What is the age of your cat?" */ />
+            <input value={age} onChange={(e) => setAge(e.target.value)} />
           </div>
           <div>
             <label>Postal code:</label>
-            <input /* placeholder="What is the postal code of your cat's location?" */
+            <input
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
             />
           </div>
           <div>
             <label>Vaccination:</label>
             <div css={radioButton('10rem')}>
-              <input type="radio" id="yes" name="vaccine" value="yes" />
+              <input
+                type="radio"
+                id="yes"
+                name="vaccine"
+                value="yes"
+                onChange={() => setVaccination('Yes')}
+              />
               <label>Yes</label>
-              <input type="radio" id="no" name="vaccine" value="no" />
+              <input
+                type="radio"
+                id="no"
+                name="vaccine"
+                value="no"
+                onChange={() => setVaccination('No')}
+              />
               <label>No</label>
             </div>
           </div>
           <div>
             <label>Gender of your cat:</label>
             <div css={radioButton('15rem')}>
-              <input type="radio" id="male" name="gender" value="male" />
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                onChange={() => setGender('Male')}
+              />
               <label>Male</label>
-              <input type="radio" id="female" name="gender" value="female" />
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                onChange={() => setGender('Female')}
+              />
               <label>Female</label>
             </div>
           </div>
           <div>
             <label>Spayed / Neutered:</label>
             <div css={radioButton('10rem')}>
-              <input type="radio" id="yes" name="spayed_neutered" value="yes" />
+              <input
+                type="radio"
+                id="yes"
+                name="spayed_neutered"
+                value="yes"
+                onChange={() => setSpayNeuter('Yes')}
+              />
               <label>Yes</label>
-              <input type="radio" id="no" name="spayed_neutered" value="no" />
+              <input
+                type="radio"
+                id="no"
+                name="spayed_neutered"
+                value="no"
+                onChange={() => setSpayNeuter('No')}
+              />
               <label>No</label>
             </div>
           </div>
           <div css={description}>
             <label>About your cat:</label>
-            <textarea /* placeholder="Describe your cat..." */></textarea>
+            <textarea
+              value={catDescription}
+              onChange={(e) => setCatDescription(e.target.value)}
+            ></textarea>
           </div>
         </div>
-        <button type="submit">Register your cat for adoption</button>
+        <button type="submit" disabled={!validationPassed}>
+          Register your cat for adoption
+        </button>
       </form>
     </div>
   )
@@ -167,6 +255,10 @@ const forAdopt = css`
       cursor: pointer;
       font-family: 'chelsea market';
       border: none;
+      &:disabled {
+        background: #9c9c9c;
+        cursor: default;
+      }
     }
 
     width: 80rem;
