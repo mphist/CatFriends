@@ -5,7 +5,8 @@ import { RecoilRoot } from 'recoil'
 import Cats from './components/Cats'
 import Header from './components/Header'
 import Poster from './components/Poster'
-import ForAdopt from './pages/ForAdopt/ForAdopt'
+import ForAdopt from './pages/ForAdopt'
+import Adopt from './pages/Adopt'
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
               <Route path="/foradopt">
                 <Poster slide={false} type="forAdopt" />
                 <ForAdopt />
+              </Route>
+              <Route path="/adopt">
+                <Poster slide={false} type="adopt" />
+                <Adopt />
               </Route>
             </AppLayout.Main>
             <Global styles={styles} />

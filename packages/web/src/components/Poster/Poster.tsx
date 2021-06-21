@@ -2,7 +2,13 @@ import { css } from '@emotion/react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { for_adopt, kittens, side_cat, two_cats } from '../../assets/images'
+import {
+  adopt,
+  for_adopt,
+  kittens,
+  side_cat,
+  two_cats,
+} from '../../assets/images'
 
 export type PosterProps = {
   slide: boolean
@@ -86,6 +92,21 @@ function Poster({ slide, type }: PosterProps) {
         </div>
         <div css={right}>
           <img id="nonSliding" src={for_adopt} alt="for_adopt" />
+        </div>
+      </div>
+    )
+
+  if (type === 'adopt')
+    return (
+      <div css={posterTop('#74dab9')}>
+        <div css={left}>
+          <div css={text}>
+            <h1>Want to find your</h1>
+            <h1>purry companion?</h1>
+          </div>
+        </div>
+        <div css={right}>
+          <img id="nonSliding" src={adopt} alt="adopt" />
         </div>
       </div>
     )

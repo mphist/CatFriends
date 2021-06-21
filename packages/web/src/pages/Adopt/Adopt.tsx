@@ -1,57 +1,41 @@
 import { css } from '@emotion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-type ForAdoptProps = {}
+type AdoptProps = {}
 
-export default function ForAdopt({}: ForAdoptProps) {
-  const [name, setName] = useState('')
+export default function Adopt({}: AdoptProps) {
   const [breed, setBreed] = useState('')
   const [age, setAge] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [vaccination, setVaccination] = useState<string | undefined>(undefined)
   const [gender, setGender] = useState<string | undefined>(undefined)
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
-  const [catDescription, setCatDescription] = useState('')
   const [validationPassed, setValidationPassed] = useState(false)
 
-  useEffect(() => {
-    if (
-      name &&
-      breed &&
-      age &&
-      postalCode &&
-      vaccination &&
-      gender &&
-      spayNeuter &&
-      catDescription
-    )
-      setValidationPassed(true)
-    else setValidationPassed(false)
-  }, [
-    name,
-    breed,
-    age,
-    postalCode,
-    vaccination,
-    gender,
-    spayNeuter,
-    catDescription,
-  ])
+  const onSubmit = () => {}
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log('submitted')
-  }
+  useEffect(() => {
+    if (postalCode) setValidationPassed(true)
+    else setValidationPassed(false)
+  }, [postalCode])
+
   return (
-    <div css={forAdopt}>
+    <div css={adopt}>
       <form onSubmit={onSubmit}>
         <div className="gridBox">
           <div>
-            <label>Name of your cat:</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <label>Age:</label>
+            <input value={age} onChange={(e) => setAge(e.target.value)} />
           </div>
           <div>
-            <label>Breed of your cat:</label>
+            <label>Postal code (required):</label>
+            <input
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Breed:</label>
             <select
               name="breed"
               id="breed"
@@ -125,17 +109,6 @@ export default function ForAdopt({}: ForAdoptProps) {
             </select>
           </div>
           <div>
-            <label>Age of your cat:</label>
-            <input value={age} onChange={(e) => setAge(e.target.value)} />
-          </div>
-          <div>
-            <label>Postal code:</label>
-            <input
-              value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
-            />
-          </div>
-          <div>
             <label>Vaccination:</label>
             <div css={radioButton('10rem')}>
               <input
@@ -198,46 +171,16 @@ export default function ForAdopt({}: ForAdoptProps) {
               <label>No</label>
             </div>
           </div>
-          <div css={description}>
-            <label>About your cat:</label>
-            <textarea
-              value={catDescription}
-              onChange={(e) => setCatDescription(e.target.value)}
-            ></textarea>
-          </div>
         </div>
         <button type="submit" disabled={!validationPassed}>
-          Register your cat for adoption
+          Search
         </button>
       </form>
     </div>
   )
 }
 
-const description = css`
-  height: 13rem !important;
-  textarea {
-    height: 100% !important;
-    border: 1px solid gray;
-    /* border-radius: 0.5rem; */
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    &:focus {
-      outline: none;
-    }
-  }
-`
-
-const radioButton = (width: string) => css`
-  flex-direction: row !important;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 !important;
-  width: ${width} !important;
-  height: 5rem;
-`
-
-const forAdopt = css`
+const adopt = css`
   .gridBox {
     height: 100%;
     display: grid;
@@ -246,6 +189,7 @@ const forAdopt = css`
   }
   form {
     button {
+      width: 10rem;
       margin: 3rem auto;
       background: #62c1db;
       font-size: 1.5rem;
@@ -301,4 +245,13 @@ const forAdopt = css`
       }
     }
   }
+`
+
+const radioButton = (width: string) => css`
+  flex-direction: row !important;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 !important;
+  width: ${width} !important;
+  height: 5rem;
 `
