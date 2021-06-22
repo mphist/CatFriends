@@ -8,5 +8,5 @@
     "photoUrl": { "type": "string" },
     "isVerified": { "type": "boolean" }
   },
-  "required": ["email", "username", "displayname", "photoUrl", "isVerified"]
+  "required": ["email", "username", "displayname", "photoUrl"]
 }

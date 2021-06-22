@@ -4,10 +4,11 @@
   "properties": {
     "name": { "type": "string" },
     "gender": { "type": "string" },
-    "age": { "type": "number" },
+    "age": { "type": "string" },
     "breed": { "type": "string" },
     "description": { "type": "string" },
-    "vaccinated": { "type": "boolean" },
+    "vaccinated": { "type": "string" },
+    "spayedOrNeutered": { "type": "string" },
     "postalCode": { "type": "string" }
   },
   "required": [

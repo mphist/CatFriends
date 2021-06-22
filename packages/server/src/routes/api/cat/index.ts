@@ -16,20 +16,48 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
       },
     },
     async (request, reply) => {
-      const { name, gender, age, breed, description, vaccinated, postalCode } =
-        request.body
-
-      // get ownerId from request
-      const ownerId = '124a4b74-a07a-487b-9b14-f6543aa0aef2'
-
-      // save a cat in db
-      const cat = {
+      const {
         name,
         gender,
         age,
         breed,
         description,
         vaccinated,
+        postalCode,
+        spayedOrNeutered,
+      } = request.body
+
+      // get ownerId from request
+      const ownerId = '596aa0a7-6bb7-4555-bff3-927c9e3ba8f1'
+
+      // convert age into unit of months
+      let ageInMonths = 0
+      if (age.includes('month')) {
+        ageInMonths = Number(age.replace('month', ''))
+      }
+      if (age.includes('months')) {
+        ageInMonths = Number(age.replace('months', ''))
+      }
+      if (age.includes('year')) {
+        ageInMonths = Number(age.replace('year', '')) * 12
+      }
+      if (age.includes('years')) {
+        ageInMonths = Number(age.replace('years', '')) * 12
+      }
+
+      // convert to booleans
+      const boolVaccinated = vaccinated === 'Yes' ? true : false
+      const boolSpayedOrNeutered = spayedOrNeutered === 'Yes' ? true : false
+
+      // save a cat in db
+      const cat = {
+        name,
+        gender,
+        age: ageInMonths,
+        breed,
+        description,
+        vaccinated: boolVaccinated,
+        spayed_neutered: boolSpayedOrNeutered,
         postalCode,
         ownerId,
       }

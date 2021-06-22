@@ -20,7 +20,7 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   profile     Profile?
-  cat         Cat?
+  cat         Cat[]
 }
 
 model Profile {
@@ -32,17 +32,17 @@ model Profile {
 }
 
 model Cat {
-  id          String   @id @default(uuid())
-  name        String   @db.VarChar(50)
-  gender      String   @db.VarChar(6)
-  age         Int
-  breed       String   @db.VarChar(30)
-  spayed_neutered Boolean 
-  description String   @db.Text
-  vaccinated  Boolean  @default(false)
-  postalCode  String   @db.VarChar(10)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  owner       User     @relation(fields: [ownerId], references: [id])
-  ownerId     String   @unique
+  id              String   @id @default(uuid())
+  name            String   @db.VarChar(50)
+  gender          String   @db.VarChar(6)
+  age             Int
+  breed           String   @db.VarChar(30)
+  spayed_neutered Boolean
+  description     String   @db.Text
+  vaccinated      Boolean  @default(false)
+  postalCode      String   @db.VarChar(10)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  owner           User     @relation(fields: [ownerId], references: [id])
+  ownerId         String
 }

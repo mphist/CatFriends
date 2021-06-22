@@ -1,6 +1,7 @@
 import { PrismaClient } from '.prisma/client'
 import fastify from 'fastify'
 import apiRoute from './routes/api'
+import cors from 'fastify-cors'
 
 export default class Server {
   app = fastify({ logger: true })
@@ -12,6 +13,20 @@ export default class Server {
   setup(prisma: PrismaClient) {
     this.app.decorate('prisma', prisma)
     this.app.register(apiRoute, { prefix: '/api' })
+    this.app.register(cors, {
+      origin: (origin, cb) => {
+        if (!origin) {
+          return cb(null, true)
+        }
+
+        if (/localhost/.test(origin)) {
+          //  Request from localhost will pass
+          return cb(null, true)
+        }
+        cb(null, true)
+      },
+      credentials: true,
+    })
   }
 
   start() {

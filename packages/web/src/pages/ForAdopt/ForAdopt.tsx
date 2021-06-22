@@ -1,9 +1,15 @@
 import { css } from '@emotion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { overlayState } from '../../atoms/overlay'
+import Overlay from '../../components/Overlay/Overlay'
+import client from '../../lib/api/client'
 
 type ForAdoptProps = {}
 
 export default function ForAdopt({}: ForAdoptProps) {
+  const history = useHistory()
   const [name, setName] = useState('')
   const [breed, setBreed] = useState('')
   const [age, setAge] = useState('')
@@ -13,6 +19,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
   const [catDescription, setCatDescription] = useState('')
   const [validationPassed, setValidationPassed] = useState(false)
+  const [overlay, setOverlay] = useRecoilState(overlayState)
 
   useEffect(() => {
     if (
@@ -38,9 +45,24 @@ export default function ForAdopt({}: ForAdoptProps) {
     catDescription,
   ])
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('submitted')
+    try {
+      await client.post('/cat/register', {
+        name,
+        gender,
+        age,
+        breed,
+        description: catDescription,
+        vaccinated: vaccination,
+        postalCode,
+        spayedOrNeutered: spayNeuter,
+      })
+
+      setOverlay({ show: true, disableScrolling: true })
+    } catch (e) {
+      console.error(e)
+    }
   }
   return (
     <div css={forAdopt}>
@@ -126,10 +148,14 @@ export default function ForAdopt({}: ForAdoptProps) {
           </div>
           <div>
             <label>Age of your cat:</label>
-            <input value={age} onChange={(e) => setAge(e.target.value)} />
+            <input
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              placeholder="e.g., 5 months, 2 years"
+            />
           </div>
           <div>
-            <label>Postal code:</label>
+            <label>Postal code (required):</label>
             <input
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
@@ -210,9 +236,43 @@ export default function ForAdopt({}: ForAdoptProps) {
           Register your cat for adoption
         </button>
       </form>
+      <Overlay show={overlay.show}>
+        <div css={confirmMsg}>
+          <h4>Your cat has been registered for adoption</h4>
+          <button onClick={() => history.push('/')}>OK</button>
+        </div>
+      </Overlay>
     </div>
   )
 }
+
+const confirmMsg = css`
+  background: white;
+  height: 5rem;
+  width: 30rem;
+  margin: 0 auto;
+  position: relative;
+  top: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  button {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    background: #7ecae0;
+    color: white;
+    outline: none;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`
 
 const description = css`
   height: 13rem !important;

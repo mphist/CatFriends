@@ -10,6 +10,6 @@ export interface CreateUserBody {
   username: string;
   displayname: string;
   photoUrl: string;
-  isVerified: boolean;
+  isVerified?: boolean;
   [k: string]: unknown;
 }

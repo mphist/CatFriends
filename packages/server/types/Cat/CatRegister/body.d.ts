@@ -8,10 +8,11 @@
 export interface CatRegisterBody {
   name: string;
   gender: string;
-  age: number;
+  age: string;
   breed: string;
   description: string;
-  vaccinated: boolean;
+  vaccinated: string;
+  spayedOrNeutered?: string;
   postalCode: string;
   [k: string]: unknown;
 }
