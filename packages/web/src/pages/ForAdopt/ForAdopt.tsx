@@ -239,7 +239,14 @@ export default function ForAdopt({}: ForAdoptProps) {
       <Overlay show={overlay.show}>
         <div css={confirmMsg}>
           <h4>Your cat has been registered for adoption</h4>
-          <button onClick={() => history.push('/')}>OK</button>
+          <button
+            onClick={() => {
+              setOverlay({ show: false, disableScrolling: false })
+              history.replace('/')
+            }}
+          >
+            OK
+          </button>
         </div>
       </Overlay>
     </div>
