@@ -243,6 +243,8 @@ export default function ForAdopt({}: ForAdoptProps) {
             onClick={() => {
               setOverlay({ show: false, disableScrolling: false })
               history.replace('/')
+              document.body.scrollTop = 0 // For Safari
+              document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
             }}
           >
             OK

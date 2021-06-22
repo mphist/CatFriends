@@ -35,11 +35,11 @@ const closeButton = css`
 
 const modal = css`
   width: 100%;
-  height: 80%;
+  height: 100%;
   background: white;
   z-index: 3;
   position: fixed;
-  top: 12rem;
+  top: 0;
   display: flex;
   .children {
     width: 95%;
