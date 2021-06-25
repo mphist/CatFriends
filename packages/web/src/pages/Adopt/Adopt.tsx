@@ -25,7 +25,11 @@ export default function Adopt({}: AdoptProps) {
         <div className="gridBox">
           <div>
             <label>Age:</label>
-            <input value={age} onChange={(e) => setAge(e.target.value)} />
+            <input
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              placeholder="e.g., 5 months, 2 years"
+            />
           </div>
           <div>
             <label>Postal code (required):</label>
