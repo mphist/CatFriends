@@ -13,7 +13,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   const [name, setName] = useState('')
   const [breed, setBreed] = useState('')
   const [age, setAge] = useState('')
-  const [postalCode, setPostalCode] = useState('')
+  const [city, setCity] = useState('')
   const [vaccination, setVaccination] = useState<string | undefined>(undefined)
   const [gender, setGender] = useState<string | undefined>(undefined)
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
@@ -26,7 +26,7 @@ export default function ForAdopt({}: ForAdoptProps) {
       name &&
       breed &&
       age &&
-      postalCode &&
+      city &&
       vaccination &&
       gender &&
       spayNeuter &&
@@ -34,16 +34,7 @@ export default function ForAdopt({}: ForAdoptProps) {
     )
       setValidationPassed(true)
     else setValidationPassed(false)
-  }, [
-    name,
-    breed,
-    age,
-    postalCode,
-    vaccination,
-    gender,
-    spayNeuter,
-    catDescription,
-  ])
+  }, [name, breed, age, city, vaccination, gender, spayNeuter, catDescription])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -55,7 +46,7 @@ export default function ForAdopt({}: ForAdoptProps) {
         breed,
         description: catDescription,
         vaccinated: vaccination,
-        postalCode,
+        city: city,
         spayedOrNeutered: spayNeuter,
       })
 
@@ -67,7 +58,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   return (
     <div css={forAdopt}>
       <form onSubmit={onSubmit}>
-        <div className="gridBox">
+        <div className='gridBox'>
           <div>
             <label>Name of your cat:</label>
             <input value={name} onChange={(e) => setName(e.target.value)} />
@@ -75,75 +66,75 @@ export default function ForAdopt({}: ForAdoptProps) {
           <div>
             <label>Breed of your cat:</label>
             <select
-              name="breed"
-              id="breed"
+              name='breed'
+              id='breed'
               value={breed}
               onChange={(e) => setBreed(e.target.value)}
             >
-              <option value="" selected disabled hidden>
+              <option value='' selected disabled hidden>
                 Choose...
               </option>
-              <option value="abyssinian">Abyssinian</option>
-              <option value="american-bobtail">American Bobtail</option>
-              <option value="american-curl">American Curl</option>
-              <option value="american-shorthair">American Shorthair</option>
-              <option value="american-wirehair">American Wirehair</option>
-              <option value="balinese">Balinese</option>
-              <option value="bengal">Bengal</option>
-              <option value="birman">Birman</option>
-              <option value="bombay">Bombay</option>
-              <option value="british-shorthair">British Shorthair</option>
-              <option value="burmese">Burmese</option>
-              <option value="burmilla">Burmilla</option>
-              <option value="calico">Calico</option>
-              <option value="chartreux">Chartreux</option>
-              <option value="chausie">Chausie</option>
-              <option value="cornish-rex">Cornish Rex</option>
-              <option value="cymric">Cymric</option>
-              <option value="devon-rex">Devon Rex</option>
-              <option value="domestic-long-haired">Domestic Long-haired</option>
-              <option value="domestic-medium-haired">
+              <option value='abyssinian'>Abyssinian</option>
+              <option value='american-bobtail'>American Bobtail</option>
+              <option value='american-curl'>American Curl</option>
+              <option value='american-shorthair'>American Shorthair</option>
+              <option value='american-wirehair'>American Wirehair</option>
+              <option value='balinese'>Balinese</option>
+              <option value='bengal'>Bengal</option>
+              <option value='birman'>Birman</option>
+              <option value='bombay'>Bombay</option>
+              <option value='british-shorthair'>British Shorthair</option>
+              <option value='burmese'>Burmese</option>
+              <option value='burmilla'>Burmilla</option>
+              <option value='calico'>Calico</option>
+              <option value='chartreux'>Chartreux</option>
+              <option value='chausie'>Chausie</option>
+              <option value='cornish-rex'>Cornish Rex</option>
+              <option value='cymric'>Cymric</option>
+              <option value='devon-rex'>Devon Rex</option>
+              <option value='domestic-long-haired'>Domestic Long-haired</option>
+              <option value='domestic-medium-haired'>
                 Domestic Medium-haired
               </option>
-              <option value="domestic-short-haired">
+              <option value='domestic-short-haired'>
                 Domestic Short-haired
               </option>
-              <option value="egyptian-mau">Egyptian Mau</option>
-              <option value="exotic-shorthair">Exotic Shorthair</option>
-              <option value="havana-brown">Havana Brown</option>
-              <option value="himalayan">Himalayan</option>
-              <option value="japanese-bobtail">Japanese Bobtail</option>
-              <option value="javanese">Javanese</option>
-              <option value="korat">Korat</option>
-              <option value="laperm">Laperm</option>
-              <option value="maine-coon">Maine Coon</option>
-              <option value="manx">Manx</option>
-              <option value="munchkin">Munchkin</option>
-              <option value="nebelung">Nebelung</option>
-              <option value="norwegian-forest-cat">Norwegian Forest Cat</option>
-              <option value="ocicat">Ocicat</option>
-              <option value="oriental">Oriental</option>
-              <option value="persian">Persian</option>
-              <option value="pixiebob">Pixiebob</option>
-              <option value="ragamuffin">Ragamuffin</option>
-              <option value="ragdoll">Ragdoll</option>
-              <option value="russian-blue">Russian Blue</option>
-              <option value="scottish-fold">Scottish Fold</option>
-              <option value="selkirk-rex">Selkirk Rex</option>
-              <option value="siamese">Siamese</option>
-              <option value="siberian">Siberian</option>
-              <option value="singapura">Singapura</option>
-              <option value="snowshoe">Snowshoe</option>
-              <option value="somali">Somali</option>
-              <option value="sphynx">Sphynx</option>
-              <option value="tabby">Tabby</option>
-              <option value="tonkinese">Tonkinese</option>
-              <option value="tortoiseshell">Tortoiseshell</option>
-              <option value="toyger">Toyger</option>
-              <option value="turkish-angora">Turkish Angora</option>
-              <option value="turkish-van">Turkish Van</option>
-              <option value="tuxedo">Tuxedo</option>
-              <option value="york-chocolate">York Chocolate</option>
+              <option value='egyptian-mau'>Egyptian Mau</option>
+              <option value='exotic-shorthair'>Exotic Shorthair</option>
+              <option value='havana-brown'>Havana Brown</option>
+              <option value='himalayan'>Himalayan</option>
+              <option value='japanese-bobtail'>Japanese Bobtail</option>
+              <option value='javanese'>Javanese</option>
+              <option value='korat'>Korat</option>
+              <option value='laperm'>Laperm</option>
+              <option value='maine-coon'>Maine Coon</option>
+              <option value='manx'>Manx</option>
+              <option value='munchkin'>Munchkin</option>
+              <option value='nebelung'>Nebelung</option>
+              <option value='norwegian-forest-cat'>Norwegian Forest Cat</option>
+              <option value='ocicat'>Ocicat</option>
+              <option value='oriental'>Oriental</option>
+              <option value='persian'>Persian</option>
+              <option value='pixiebob'>Pixiebob</option>
+              <option value='ragamuffin'>Ragamuffin</option>
+              <option value='ragdoll'>Ragdoll</option>
+              <option value='russian-blue'>Russian Blue</option>
+              <option value='scottish-fold'>Scottish Fold</option>
+              <option value='selkirk-rex'>Selkirk Rex</option>
+              <option value='siamese'>Siamese</option>
+              <option value='siberian'>Siberian</option>
+              <option value='singapura'>Singapura</option>
+              <option value='snowshoe'>Snowshoe</option>
+              <option value='somali'>Somali</option>
+              <option value='sphynx'>Sphynx</option>
+              <option value='tabby'>Tabby</option>
+              <option value='tonkinese'>Tonkinese</option>
+              <option value='tortoiseshell'>Tortoiseshell</option>
+              <option value='toyger'>Toyger</option>
+              <option value='turkish-angora'>Turkish Angora</option>
+              <option value='turkish-van'>Turkish Van</option>
+              <option value='tuxedo'>Tuxedo</option>
+              <option value='york-chocolate'>York Chocolate</option>
             </select>
           </div>
           <div>
@@ -151,32 +142,29 @@ export default function ForAdopt({}: ForAdoptProps) {
             <input
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              placeholder="e.g., 5 months, 2 years"
+              placeholder='e.g., 5 months, 2 years'
             />
           </div>
           <div>
-            <label>Postal code (required):</label>
-            <input
-              value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
-            />
+            <label>City (required):</label>
+            <input value={city} onChange={(e) => setCity(e.target.value)} />
           </div>
           <div>
             <label>Vaccination:</label>
             <div css={radioButton('10rem')}>
               <input
-                type="radio"
-                id="yes"
-                name="vaccine"
-                value="yes"
+                type='radio'
+                id='yes'
+                name='vaccine'
+                value='yes'
                 onChange={() => setVaccination('Yes')}
               />
               <label>Yes</label>
               <input
-                type="radio"
-                id="no"
-                name="vaccine"
-                value="no"
+                type='radio'
+                id='no'
+                name='vaccine'
+                value='no'
                 onChange={() => setVaccination('No')}
               />
               <label>No</label>
@@ -186,18 +174,18 @@ export default function ForAdopt({}: ForAdoptProps) {
             <label>Gender of your cat:</label>
             <div css={radioButton('15rem')}>
               <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
+                type='radio'
+                id='male'
+                name='gender'
+                value='male'
                 onChange={() => setGender('Male')}
               />
               <label>Male</label>
               <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
+                type='radio'
+                id='female'
+                name='gender'
+                value='female'
                 onChange={() => setGender('Female')}
               />
               <label>Female</label>
@@ -207,18 +195,18 @@ export default function ForAdopt({}: ForAdoptProps) {
             <label>Spayed / Neutered:</label>
             <div css={radioButton('10rem')}>
               <input
-                type="radio"
-                id="yes"
-                name="spayed_neutered"
-                value="yes"
+                type='radio'
+                id='yes'
+                name='spayed_neutered'
+                value='yes'
                 onChange={() => setSpayNeuter('Yes')}
               />
               <label>Yes</label>
               <input
-                type="radio"
-                id="no"
-                name="spayed_neutered"
-                value="no"
+                type='radio'
+                id='no'
+                name='spayed_neutered'
+                value='no'
                 onChange={() => setSpayNeuter('No')}
               />
               <label>No</label>
@@ -232,7 +220,7 @@ export default function ForAdopt({}: ForAdoptProps) {
             ></textarea>
           </div>
         </div>
-        <button type="submit" disabled={!validationPassed}>
+        <button type='submit' disabled={!validationPassed}>
           Register your cat for adoption
         </button>
       </form>
