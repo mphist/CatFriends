@@ -13,6 +13,7 @@ export interface CatRegisterBody {
   description: string;
   vaccinated: string;
   spayedOrNeutered?: string;
-  postalCode: string;
+  city: string;
+  country: string;
   [k: string]: unknown;
 }

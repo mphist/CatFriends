@@ -2,10 +2,11 @@
   "title": "Cat Search Body",
   "type": "object",
   "properties": {
-    "postalCode": { "type": "string" },
+    "city": { "type": "string" },
+    "country": { "type": "string" },
     "gender": { "type": "string" },
     "age": { "type": "number" },
     "breed": { "type": "string" }
   },
-  "required": ["postalCode"]
+  "required": ["city", "country"]
 }

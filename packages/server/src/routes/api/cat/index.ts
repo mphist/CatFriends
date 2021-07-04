@@ -23,7 +23,8 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
         breed,
         description,
         vaccinated,
-        postalCode,
+        city,
+        country,
         spayedOrNeutered,
       } = request.body
 
@@ -58,7 +59,8 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
         description,
         vaccinated: boolVaccinated,
         spayed_neutered: boolSpayedOrNeutered,
-        postalCode,
+        city,
+        country,
         ownerId,
       }
 
@@ -80,11 +82,11 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
   */
 
   fastify.post<{ Body: CatSearchBody }>('/search', async (request, reply) => {
-    const { postalCode, gender, age, breed } = request.body
+    const { city, country, gender, age, breed } = request.body
 
     try {
       const res = await fastify.prisma.cat.findMany({
-        where: { postalCode, gender, age, breed },
+        where: { city, country, gender, age, breed },
         include: {
           owner: {
             select: {

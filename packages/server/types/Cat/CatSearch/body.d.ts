@@ -6,7 +6,8 @@
  */
 
 export interface CatSearchBody {
-  postalCode: string;
+  city: string;
+  country: string;
   gender?: string;
   age?: number;
   breed?: string;
