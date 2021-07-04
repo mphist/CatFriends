@@ -7,6 +7,7 @@ export default function Adopt({}: AdoptProps) {
   const [breed, setBreed] = useState('')
   const [age, setAge] = useState('')
   const [city, setCity] = useState('')
+  const [country, setCountry] = useState('')
   const [vaccination, setVaccination] = useState<string | undefined>(undefined)
   const [gender, setGender] = useState<string | undefined>(undefined)
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
@@ -34,6 +35,27 @@ export default function Adopt({}: AdoptProps) {
           <div>
             <label>City (required):</label>
             <input value={city} onChange={(e) => setCity(e.target.value)} />
+          </div>
+          <div>
+            <label>Country (required):</label>
+            <div css={radioButton('12rem')}>
+              <input
+                type='radio'
+                id='us'
+                name='country'
+                value='US'
+                onChange={() => setCountry('US')}
+              />
+              <label>US</label>
+              <input
+                type='radio'
+                id='canada'
+                name='country'
+                value='Canada'
+                onChange={() => setCountry('Canada')}
+              />
+              <label>Canada</label>
+            </div>
           </div>
           <div>
             <label>Breed:</label>
