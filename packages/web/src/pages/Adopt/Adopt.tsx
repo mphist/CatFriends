@@ -20,7 +20,9 @@ export default function Adopt({}: AdoptProps) {
 
   useEffect(() => {
     ageRef.current?.focus()
+  }, [])
 
+  useEffect(() => {
     if (city) setValidationPassed(true)
     else setValidationPassed(false)
   }, [city])
