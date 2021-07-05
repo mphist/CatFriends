@@ -5,7 +5,8 @@ import { useRecoilState } from 'recoil'
 import { overlayState } from '../../atoms/overlay'
 import Overlay from '../../components/Overlay/Overlay'
 import client from '../../lib/api/client'
-import Icon from '../../components/Icon'
+import BreedSelector from '../../components/BreedSelector'
+import UploadFileContainer from '../../components/UploadFileContainer'
 
 type ForAdoptProps = {}
 
@@ -29,12 +30,19 @@ export default function ForAdopt({}: ForAdoptProps) {
   const [thumbnail5, setThumbnail5] = useState<string | undefined>(undefined)
   const [thumbnail6, setThumbnail6] = useState<string | undefined>(undefined)
 
-  const fileRef1 = useRef<HTMLInputElement | null>(null)
-  const fileRef2 = useRef<HTMLInputElement | null>(null)
-  const fileRef3 = useRef<HTMLInputElement | null>(null)
-  const fileRef4 = useRef<HTMLInputElement | null>(null)
-  const fileRef5 = useRef<HTMLInputElement | null>(null)
-  const fileRef6 = useRef<HTMLInputElement | null>(null)
+  const fileRef1 = useRef<HTMLInputElement>(null)
+  const fileRef2 = useRef<HTMLInputElement>(null)
+  const fileRef3 = useRef<HTMLInputElement>(null)
+  const fileRef4 = useRef<HTMLInputElement>(null)
+  const fileRef5 = useRef<HTMLInputElement>(null)
+  const fileRef6 = useRef<HTMLInputElement>(null)
+
+  const nameRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    // on first render only
+    nameRef?.current?.focus()
+  }, [])
 
   useEffect(() => {
     // form validation
@@ -51,8 +59,6 @@ export default function ForAdopt({}: ForAdoptProps) {
     )
       setValidationPassed(true)
     else setValidationPassed(false)
-
-    // upload file selection
   }, [
     name,
     breed,
@@ -91,81 +97,15 @@ export default function ForAdopt({}: ForAdoptProps) {
         <div className='gridBox'>
           <div>
             <label>Name of your cat:</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              ref={nameRef}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div>
             <label>Breed of your cat:</label>
-            <select
-              name='breed'
-              id='breed'
-              value={breed}
-              onChange={(e) => setBreed(e.target.value)}
-            >
-              <option value='' selected disabled hidden>
-                Choose...
-              </option>
-              <option value='abyssinian'>Abyssinian</option>
-              <option value='american-bobtail'>American Bobtail</option>
-              <option value='american-curl'>American Curl</option>
-              <option value='american-shorthair'>American Shorthair</option>
-              <option value='american-wirehair'>American Wirehair</option>
-              <option value='balinese'>Balinese</option>
-              <option value='bengal'>Bengal</option>
-              <option value='birman'>Birman</option>
-              <option value='bombay'>Bombay</option>
-              <option value='british-shorthair'>British Shorthair</option>
-              <option value='burmese'>Burmese</option>
-              <option value='burmilla'>Burmilla</option>
-              <option value='calico'>Calico</option>
-              <option value='chartreux'>Chartreux</option>
-              <option value='chausie'>Chausie</option>
-              <option value='cornish-rex'>Cornish Rex</option>
-              <option value='cymric'>Cymric</option>
-              <option value='devon-rex'>Devon Rex</option>
-              <option value='domestic-long-haired'>Domestic Long-haired</option>
-              <option value='domestic-medium-haired'>
-                Domestic Medium-haired
-              </option>
-              <option value='domestic-short-haired'>
-                Domestic Short-haired
-              </option>
-              <option value='egyptian-mau'>Egyptian Mau</option>
-              <option value='exotic-shorthair'>Exotic Shorthair</option>
-              <option value='havana-brown'>Havana Brown</option>
-              <option value='himalayan'>Himalayan</option>
-              <option value='japanese-bobtail'>Japanese Bobtail</option>
-              <option value='javanese'>Javanese</option>
-              <option value='korat'>Korat</option>
-              <option value='laperm'>Laperm</option>
-              <option value='maine-coon'>Maine Coon</option>
-              <option value='manx'>Manx</option>
-              <option value='munchkin'>Munchkin</option>
-              <option value='nebelung'>Nebelung</option>
-              <option value='norwegian-forest-cat'>Norwegian Forest Cat</option>
-              <option value='ocicat'>Ocicat</option>
-              <option value='oriental'>Oriental</option>
-              <option value='persian'>Persian</option>
-              <option value='pixiebob'>Pixiebob</option>
-              <option value='ragamuffin'>Ragamuffin</option>
-              <option value='ragdoll'>Ragdoll</option>
-              <option value='russian-blue'>Russian Blue</option>
-              <option value='scottish-fold'>Scottish Fold</option>
-              <option value='selkirk-rex'>Selkirk Rex</option>
-              <option value='siamese'>Siamese</option>
-              <option value='siberian'>Siberian</option>
-              <option value='singapura'>Singapura</option>
-              <option value='snowshoe'>Snowshoe</option>
-              <option value='somali'>Somali</option>
-              <option value='sphynx'>Sphynx</option>
-              <option value='tabby'>Tabby</option>
-              <option value='tonkinese'>Tonkinese</option>
-              <option value='tortoiseshell'>Tortoiseshell</option>
-              <option value='toyger'>Toyger</option>
-              <option value='turkish-angora'>Turkish Angora</option>
-              <option value='turkish-van'>Turkish Van</option>
-              <option value='tuxedo'>Tuxedo</option>
-              <option value='york-chocolate'>York Chocolate</option>
-            </select>
+            <BreedSelector breed={breed} setBreed={setBreed} />
           </div>
           <div>
             <label>Age of your cat:</label>
@@ -273,156 +213,42 @@ export default function ForAdopt({}: ForAdoptProps) {
           <div>
             <label>Images & videos of your cat:</label>
             <div css={uploadFile}>
-              <div>
-                <input
-                  type='file'
-                  id='upload-1'
-                  accept='image/*,video/*'
-                  ref={fileRef1}
-                  onChange={() => {
-                    if (fileRef1?.current?.files?.length !== 0)
-                      setThumbnail1(
-                        URL.createObjectURL(fileRef1?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-1'>
-                  {!!thumbnail1 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail1} alt='thumbnail1' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
-              <div>
-                <input
-                  type='file'
-                  id='upload-2'
-                  accept='image/*,video/*'
-                  ref={fileRef2}
-                  onChange={() => {
-                    if (fileRef2?.current?.files?.length !== 0)
-                      setThumbnail2(
-                        URL.createObjectURL(fileRef2?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-2'>
-                  {!!thumbnail2 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail2} alt='thumbnail2' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
-              <div>
-                <input
-                  type='file'
-                  id='upload-3'
-                  accept='image/*,video/*'
-                  ref={fileRef3}
-                  onChange={() => {
-                    if (fileRef3?.current?.files?.length !== 0)
-                      setThumbnail3(
-                        URL.createObjectURL(fileRef3?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-3'>
-                  {!!thumbnail3 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail3} alt='thumbnail3' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
-              <div>
-                <input
-                  type='file'
-                  id='upload-4'
-                  accept='image/*,video/*'
-                  ref={fileRef4}
-                  onChange={() => {
-                    if (fileRef4?.current?.files?.length !== 0)
-                      setThumbnail4(
-                        URL.createObjectURL(fileRef4?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-4'>
-                  {!!thumbnail4 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail4} alt='thumbnail4' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
-              <div>
-                <input
-                  type='file'
-                  id='upload-5'
-                  accept='image/*,video/*'
-                  ref={fileRef5}
-                  onChange={() => {
-                    if (fileRef5?.current?.files?.length !== 0)
-                      setThumbnail5(
-                        URL.createObjectURL(fileRef5?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-5'>
-                  {!!thumbnail5 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail5} alt='thumbnail5' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
-              <div>
-                <input
-                  type='file'
-                  id='upload-6'
-                  accept='image/*,video/*'
-                  ref={fileRef6}
-                  onChange={() => {
-                    if (fileRef6?.current?.files?.length !== 0)
-                      setThumbnail6(
-                        URL.createObjectURL(fileRef6?.current?.files?.[0])
-                      )
-                  }}
-                  hidden
-                />
-                <label htmlFor='upload-6'>
-                  {!!thumbnail6 ? (
-                    <div id='fileWrapper'>
-                      <img src={thumbnail6} alt='thumbnail6' />
-                      <Icon name='delete_button' />
-                    </div>
-                  ) : (
-                    <Icon name='add_button' />
-                  )}
-                </label>
-              </div>
+              <UploadFileContainer
+                id='upload-1'
+                ref={fileRef1}
+                thumbnail={thumbnail1}
+                setThumbnail={setThumbnail1}
+              />
+              <UploadFileContainer
+                id='upload-2'
+                ref={fileRef2}
+                thumbnail={thumbnail2}
+                setThumbnail={setThumbnail2}
+              />
+              <UploadFileContainer
+                id='upload-3'
+                ref={fileRef3}
+                thumbnail={thumbnail3}
+                setThumbnail={setThumbnail3}
+              />
+              <UploadFileContainer
+                id='upload-4'
+                ref={fileRef4}
+                thumbnail={thumbnail4}
+                setThumbnail={setThumbnail4}
+              />
+              <UploadFileContainer
+                id='upload-5'
+                ref={fileRef5}
+                thumbnail={thumbnail5}
+                setThumbnail={setThumbnail5}
+              />
+              <UploadFileContainer
+                id='upload-6'
+                ref={fileRef6}
+                thumbnail={thumbnail6}
+                setThumbnail={setThumbnail6}
+              />
             </div>
           </div>
         </div>
@@ -482,9 +308,8 @@ const uploadFile = css`
     }
 
     label {
-      /* width: 100%;
-      height: 100% !important; */
-
+      width: 100%;
+      height: 100%;
       cursor: pointer;
 
       text-align: center;
@@ -505,6 +330,7 @@ const uploadFile = css`
 
       #fileWrapper {
         position: relative !important;
+        border: none;
         svg {
           position: absolute !important;
           top: 0;
@@ -513,11 +339,14 @@ const uploadFile = css`
           color: #3b3a3a;
           visibility: hidden;
         }
-
         &:hover {
           svg {
             visibility: visible;
           }
+        }
+
+        video {
+          width: 7rem;
         }
       }
     }

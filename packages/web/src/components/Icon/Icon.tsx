@@ -7,8 +7,9 @@ type IconProps = {
   name: IconType
   className?: string
   style?: React.CSSProperties
+  onClick?: React.MouseEventHandler
 }
 
-export default function Icon({ name, className, style }: IconProps) {
-  return React.createElement(svg[name], { className, style })
+export default function Icon({ name, className, style, onClick }: IconProps) {
+  return React.createElement(svg[name], { className, style, onClick })
 }

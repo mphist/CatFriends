@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <AppLayout>
-          <Route path={['/', '/foradopt', '/adopt', '/contact']} exact>
+          <Route path={['/', '/foradopt', '/adopt', '/contact']}>
             <AppLayout.Header>
               <Header />
             </AppLayout.Header>
@@ -25,12 +25,12 @@ function App() {
               <Poster slide={true} />
               <Cats />
             </Route>
-            <Route path="/foradopt">
-              <Poster slide={false} type="forAdopt" />
+            <Route path='/foradopt'>
+              <Poster slide={false} type='forAdopt' />
               <ForAdopt />
             </Route>
-            <Route path="/adopt">
-              <Poster slide={false} type="adopt" />
+            <Route path='/adopt'>
+              <Poster slide={false} type='adopt' />
               <Adopt />
             </Route>
           </AppLayout.Main>
