@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <AppLayout>
-          <Route path={['/', '/foradopt', '/adopt', '/contact']}>
+          <Route path={['/', '/foradopt', '/adopt', '/contact']} exact>
             <AppLayout.Header>
               <Header />
             </AppLayout.Header>
