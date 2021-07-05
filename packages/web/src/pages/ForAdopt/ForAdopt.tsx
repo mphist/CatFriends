@@ -1,10 +1,11 @@
 import { css } from '@emotion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { overlayState } from '../../atoms/overlay'
 import Overlay from '../../components/Overlay/Overlay'
 import client from '../../lib/api/client'
+import Icon from '../../components/Icon'
 
 type ForAdoptProps = {}
 
@@ -21,8 +22,22 @@ export default function ForAdopt({}: ForAdoptProps) {
   const [catDescription, setCatDescription] = useState('')
   const [validationPassed, setValidationPassed] = useState(false)
   const [overlay, setOverlay] = useRecoilState(overlayState)
+  const [thumbnail1, setThumbnail1] = useState<string | undefined>(undefined)
+  const [thumbnail2, setThumbnail2] = useState<string | undefined>(undefined)
+  const [thumbnail3, setThumbnail3] = useState<string | undefined>(undefined)
+  const [thumbnail4, setThumbnail4] = useState<string | undefined>(undefined)
+  const [thumbnail5, setThumbnail5] = useState<string | undefined>(undefined)
+  const [thumbnail6, setThumbnail6] = useState<string | undefined>(undefined)
+
+  const fileRef1 = useRef<HTMLInputElement | null>(null)
+  const fileRef2 = useRef<HTMLInputElement | null>(null)
+  const fileRef3 = useRef<HTMLInputElement | null>(null)
+  const fileRef4 = useRef<HTMLInputElement | null>(null)
+  const fileRef5 = useRef<HTMLInputElement | null>(null)
+  const fileRef6 = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
+    // form validation
     if (
       name &&
       breed &&
@@ -36,6 +51,8 @@ export default function ForAdopt({}: ForAdoptProps) {
     )
       setValidationPassed(true)
     else setValidationPassed(false)
+
+    // upload file selection
   }, [
     name,
     breed,
@@ -253,6 +270,161 @@ export default function ForAdopt({}: ForAdoptProps) {
               onChange={(e) => setCatDescription(e.target.value)}
             ></textarea>
           </div>
+          <div>
+            <label>Images & videos of your cat:</label>
+            <div css={uploadFile}>
+              <div>
+                <input
+                  type='file'
+                  id='upload-1'
+                  accept='image/*,video/*'
+                  ref={fileRef1}
+                  onChange={() => {
+                    if (fileRef1?.current?.files?.length !== 0)
+                      setThumbnail1(
+                        URL.createObjectURL(fileRef1?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-1'>
+                  {!!thumbnail1 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail1} alt='thumbnail1' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  id='upload-2'
+                  accept='image/*,video/*'
+                  ref={fileRef2}
+                  onChange={() => {
+                    if (fileRef2?.current?.files?.length !== 0)
+                      setThumbnail2(
+                        URL.createObjectURL(fileRef2?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-2'>
+                  {!!thumbnail2 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail2} alt='thumbnail2' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  id='upload-3'
+                  accept='image/*,video/*'
+                  ref={fileRef3}
+                  onChange={() => {
+                    if (fileRef3?.current?.files?.length !== 0)
+                      setThumbnail3(
+                        URL.createObjectURL(fileRef3?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-3'>
+                  {!!thumbnail3 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail3} alt='thumbnail3' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  id='upload-4'
+                  accept='image/*,video/*'
+                  ref={fileRef4}
+                  onChange={() => {
+                    if (fileRef4?.current?.files?.length !== 0)
+                      setThumbnail4(
+                        URL.createObjectURL(fileRef4?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-4'>
+                  {!!thumbnail4 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail4} alt='thumbnail4' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  id='upload-5'
+                  accept='image/*,video/*'
+                  ref={fileRef5}
+                  onChange={() => {
+                    if (fileRef5?.current?.files?.length !== 0)
+                      setThumbnail5(
+                        URL.createObjectURL(fileRef5?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-5'>
+                  {!!thumbnail5 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail5} alt='thumbnail5' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  id='upload-6'
+                  accept='image/*,video/*'
+                  ref={fileRef6}
+                  onChange={() => {
+                    if (fileRef6?.current?.files?.length !== 0)
+                      setThumbnail6(
+                        URL.createObjectURL(fileRef6?.current?.files?.[0])
+                      )
+                  }}
+                  hidden
+                />
+                <label htmlFor='upload-6'>
+                  {!!thumbnail6 ? (
+                    <div id='fileWrapper'>
+                      <img src={thumbnail6} alt='thumbnail6' />
+                      <Icon name='delete_button' />
+                    </div>
+                  ) : (
+                    <Icon name='add_button' />
+                  )}
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
         <button type='submit' disabled={!validationPassed}>
           Register your cat for adoption
@@ -276,6 +448,81 @@ export default function ForAdopt({}: ForAdoptProps) {
     </div>
   )
 }
+
+const uploadFile = css`
+  /* border: 1px solid gray; */
+  /*display: flex;
+   flex-direction: row !important;
+  justify-content: space-evenly;
+  align-items: center; */
+
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+
+  height: 12.5rem;
+  padding: 0 !important;
+
+  div {
+    border: 1px solid gray;
+    width: 8rem !important;
+    height: 6rem !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background: #dfdede;
+    }
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: gray;
+    }
+
+    label {
+      /* width: 100%;
+      height: 100% !important; */
+
+      cursor: pointer;
+
+      text-align: center;
+      vertical-align: middle;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      /* img {
+        max-width: 7rem;
+        overflow: hidden;
+      } */
+      img {
+        max-width: 5rem;
+      }
+
+      #fileWrapper {
+        position: relative !important;
+        svg {
+          position: absolute !important;
+          top: 0;
+          left: 6rem;
+          width: 1.5rem;
+          color: #3b3a3a;
+          visibility: hidden;
+        }
+
+        &:hover {
+          svg {
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+`
 
 const confirmMsg = css`
   background: white;
@@ -306,7 +553,7 @@ const confirmMsg = css`
 `
 
 const description = css`
-  height: 13rem !important;
+  height: 15rem !important;
   textarea {
     height: 100% !important;
     border: 1px solid gray;
@@ -370,25 +617,29 @@ const forAdopt = css`
       padding: 0.5rem 0;
     }
 
-    div {
-      display: flex;
-      flex-direction: column;
-      font-size: 1.3rem;
-      padding: 1rem 2rem;
+    .gridBox {
+      div {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+        max-width: 25rem;
+        max-height: 20rem;
 
-      span {
-        padding: 3rem 0;
-      }
-      input {
-        font-size: 1.2rem;
-        width: 25rem;
-        padding: 0.5rem;
-        /* border: none; */
-        &:focus {
-          outline: none;
+        span {
+          padding: 3rem 0;
         }
-        /* border-radius: 0.5rem; */
-        border: 1px solid gray;
+        input {
+          font-size: 1.2rem;
+          width: 23rem;
+          padding: 0.5rem;
+          /* border: none; */
+          &:focus {
+            outline: none;
+          }
+          /* border-radius: 0.5rem; */
+          border: 1px solid gray;
+        }
       }
     }
   }
