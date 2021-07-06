@@ -276,12 +276,6 @@ export default function ForAdopt({}: ForAdoptProps) {
 }
 
 const uploadFile = css`
-  /* border: 1px solid gray; */
-  /*display: flex;
-   flex-direction: row !important;
-  justify-content: space-evenly;
-  align-items: center; */
-
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;

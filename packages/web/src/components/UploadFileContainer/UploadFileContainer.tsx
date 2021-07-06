@@ -21,7 +21,6 @@ function UploadFileContainer(
         ref={ref}
         onChange={() => {
           if (ref?.current?.files?.length !== 0) {
-            console.log(ref?.current?.files?.[0])
             setThumbnail(URL.createObjectURL(ref?.current?.files?.[0]))
           }
         }}
