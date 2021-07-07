@@ -73,23 +73,41 @@ export default function ForAdopt({}: ForAdoptProps) {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      await client.post('/cat/register', {
-        name,
-        gender,
-        age,
-        breed,
-        description: catDescription,
-        vaccinated: vaccination,
-        city: city,
-        country,
-        spayedOrNeutered: spayNeuter,
-      })
 
-      setOverlay({ show: true, disableScrolling: true })
+    // upload image/video to imgur
+    try {
+      await client.post('/cat/upload_imgur', {
+        files: [
+          fileRef1!.current!.files![0],
+          fileRef2!.current!.files![0],
+          fileRef3!.current!.files![0],
+          fileRef4!.current!.files![0],
+          fileRef5!.current!.files![0],
+          fileRef6!.current!.files![0],
+        ],
+      })
     } catch (e) {
       console.error(e)
     }
+
+    // save to db
+    // try {
+    //   await client.post('/cat/register', {
+    //     name,
+    //     gender,
+    //     age,
+    //     breed,
+    //     description: catDescription,
+    //     vaccinated: vaccination,
+    //     city: city,
+    //     country,
+    //     spayedOrNeutered: spayNeuter,
+    //   })
+
+    //   setOverlay({ show: true, disableScrolling: true })
+    // } catch (e) {
+    //   console.error(e)
+    // }
   }
   return (
     <div css={forAdopt}>
