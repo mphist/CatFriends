@@ -46,4 +46,5 @@ model Cat {
   updatedAt       DateTime @updatedAt
   owner           User     @relation(fields: [ownerId], references: [id])
   ownerId         String
+  media           String[]
 }

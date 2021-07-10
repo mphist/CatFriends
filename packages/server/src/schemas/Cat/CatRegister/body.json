@@ -10,7 +10,8 @@
     "vaccinated": { "type": "string" },
     "spayedOrNeutered": { "type": "string" },
     "city": { "type": "string" },
-    "country": { "type": "string" }
+    "country": { "type": "string" },
+    "media": { "type": "array", "items": { "type": "string" } }
   },
   "required": [
     "name",

@@ -15,5 +15,6 @@ export interface CatRegisterBody {
   spayedOrNeutered?: string;
   city: string;
   country: string;
+  media?: string[];
   [k: string]: unknown;
 }

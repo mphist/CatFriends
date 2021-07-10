@@ -5,13 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export interface CatSearchBody {
-  city: string;
-  country: string;
-  gender?: string;
-  age?: string;
-  breed?: string;
-  vaccinated?: string;
-  spayedOrNeutered?: string;
+export interface UploadImgurBody {
+  files?: unknown[];
   [k: string]: unknown;
 }

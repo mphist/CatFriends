@@ -1,0 +1,8 @@
+{
+  "title": "Upload Imgur Body",
+  "type": "object",
+  "isFileType": true,
+  "properties": {
+    "files": { "type": "array", "isFileType": true }
+  }
+}
