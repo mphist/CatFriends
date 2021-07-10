@@ -7,7 +7,6 @@ import Overlay from '../../components/Overlay/Overlay'
 import client from '../../lib/api/client'
 import BreedSelector from '../../components/BreedSelector'
 import UploadFileContainer from '../../components/UploadFileContainer'
-import axios from 'axios'
 import getFileUrls from './getFileUrls'
 import uploadToImgur from '../../lib/uploadToImgur'
 
@@ -32,6 +31,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   const [thumbnail4, setThumbnail4] = useState<string | undefined>(undefined)
   const [thumbnail5, setThumbnail5] = useState<string | undefined>(undefined)
   const [thumbnail6, setThumbnail6] = useState<string | undefined>(undefined)
+  const [loading, setLoading] = useState(false)
 
   const fileRef1 = useRef<HTMLInputElement>(null)
   const fileRef2 = useRef<HTMLInputElement>(null)
@@ -74,19 +74,10 @@ export default function ForAdopt({}: ForAdoptProps) {
     catDescription,
   ])
 
-  function getBase64(file: File) {
-    return new Promise<string | ArrayBuffer | null>(function (resolve, reject) {
-      const reader = new FileReader()
-      reader.onload = function () {
-        resolve(reader.result)
-      }
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
-  }
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
+    setOverlay({ show: true, disableScrolling: true })
 
     // upload image/video to imgur
     try {
@@ -116,31 +107,33 @@ export default function ForAdopt({}: ForAdoptProps) {
           : undefined
 
       const files = [file1, file2, file3, file4, file5, file6]
+
+      // upload media files to imgur
       const results = await uploadToImgur(files)
       const fileUrls = getFileUrls(results)
-      console.log(fileUrls)
+
+      // save cat data and urls in db
+      try {
+        await client.post('/cat/register', {
+          name,
+          gender,
+          age,
+          breed,
+          description: catDescription,
+          vaccinated: vaccination,
+          city: city,
+          country,
+          spayedOrNeutered: spayNeuter,
+          media: fileUrls,
+        })
+
+        setLoading(false)
+      } catch (e) {
+        console.error(e)
+      }
     } catch (e) {
       console.error(e)
     }
-
-    // save to db
-    // try {
-    //   await client.post('/cat/register', {
-    //     name,
-    //     gender,
-    //     age,
-    //     breed,
-    //     description: catDescription,
-    //     vaccinated: vaccination,
-    //     city: city,
-    //     country,
-    //     spayedOrNeutered: spayNeuter,
-    //   })
-
-    //   setOverlay({ show: true, disableScrolling: true })
-    // } catch (e) {
-    //   console.error(e)
-    // }
   }
   return (
     <div css={forAdopt}>
@@ -308,19 +301,23 @@ export default function ForAdopt({}: ForAdoptProps) {
         </button>
       </form>
       <Overlay show={overlay.show}>
-        <div css={confirmMsg}>
-          <h4>Your cat has been registered for adoption</h4>
-          <button
-            onClick={() => {
-              setOverlay({ show: false, disableScrolling: false })
-              history.replace('/')
-              document.body.scrollTop = 0 // For Safari
-              document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-            }}
-          >
-            OK
-          </button>
-        </div>
+        {loading ? (
+          <div css={loadingMsg}>Please wait...</div>
+        ) : (
+          <div css={confirmMsg}>
+            <h4>Your cat has been registered for adoption</h4>
+            <button
+              onClick={() => {
+                setOverlay({ show: false, disableScrolling: false })
+                history.replace('/')
+                document.body.scrollTop = 0 // For Safari
+                document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+              }}
+            >
+              OK
+            </button>
+          </div>
+        )}
       </Overlay>
     </div>
   )
@@ -396,6 +393,12 @@ const uploadFile = css`
       }
     }
   }
+`
+
+const loadingMsg = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const confirmMsg = css`
