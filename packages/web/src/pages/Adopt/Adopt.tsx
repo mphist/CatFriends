@@ -1,11 +1,12 @@
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from 'react'
 import BreedSelector from '../../components/BreedSelector'
+import client from '../../lib/api/client'
 
 type AdoptProps = {}
 
 export default function Adopt({}: AdoptProps) {
-  const [breed, setBreed] = useState('')
+  const [breed, setBreed] = useState<string | undefined>(undefined)
   const [age, setAge] = useState('')
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
@@ -16,7 +17,21 @@ export default function Adopt({}: AdoptProps) {
 
   const ageRef = useRef<HTMLInputElement | null>(null)
 
-  const onSubmit = () => {}
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // search in db
+    const results = await client.post('/cat/search', {
+      city,
+      country,
+      gender,
+      age,
+      breed,
+      vaccination,
+      spayNeuter,
+    })
+    console.log(results)
+  }
 
   useEffect(() => {
     ageRef.current?.focus()

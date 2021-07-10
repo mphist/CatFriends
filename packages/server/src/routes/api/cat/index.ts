@@ -163,7 +163,6 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
         vaccinated,
         spayedOrNeutered,
       })
-      console.log(normalizedData)
 
       try {
         const res = await fastify.prisma.cat.findMany({

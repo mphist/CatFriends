@@ -15,7 +15,7 @@ type ForAdoptProps = {}
 export default function ForAdopt({}: ForAdoptProps) {
   const history = useHistory()
   const [name, setName] = useState('')
-  const [breed, setBreed] = useState('')
+  const [breed, setBreed] = useState<string | undefined>(undefined)
   const [age, setAge] = useState('')
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')

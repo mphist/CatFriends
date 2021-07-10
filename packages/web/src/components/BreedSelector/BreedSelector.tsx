@@ -1,6 +1,6 @@
 export type BreedSelectorProps = {
-  breed: string
-  setBreed: React.Dispatch<React.SetStateAction<string>>
+  breed?: string
+  setBreed?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 function BreedSelector({ breed, setBreed }: BreedSelectorProps) {
@@ -9,7 +9,7 @@ function BreedSelector({ breed, setBreed }: BreedSelectorProps) {
       name='breed'
       id='breed'
       value={breed}
-      onChange={(e) => setBreed(e.target.value)}
+      onChange={(e) => setBreed!(e.target.value)}
     >
       <option value='' selected disabled hidden>
         Choose...
