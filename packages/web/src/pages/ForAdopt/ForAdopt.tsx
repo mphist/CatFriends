@@ -7,6 +7,9 @@ import Overlay from '../../components/Overlay/Overlay'
 import client from '../../lib/api/client'
 import BreedSelector from '../../components/BreedSelector'
 import UploadFileContainer from '../../components/UploadFileContainer'
+import axios from 'axios'
+import getFileUrls from './getFileUrls'
+import uploadToImgur from '../../lib/uploadToImgur'
 
 type ForAdoptProps = {}
 
@@ -71,21 +74,51 @@ export default function ForAdopt({}: ForAdoptProps) {
     catDescription,
   ])
 
+  function getBase64(file: File) {
+    return new Promise<string | ArrayBuffer | null>(function (resolve, reject) {
+      const reader = new FileReader()
+      reader.onload = function () {
+        resolve(reader.result)
+      }
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     // upload image/video to imgur
     try {
-      await client.post('/cat/upload_imgur', {
-        files: [
-          fileRef1!.current!.files![0],
-          fileRef2!.current!.files![0],
-          fileRef3!.current!.files![0],
-          fileRef4!.current!.files![0],
-          fileRef5!.current!.files![0],
-          fileRef6!.current!.files![0],
-        ],
-      })
+      const file1 =
+        fileRef1?.current?.files?.length !== 0
+          ? await fileRef1?.current?.files?.[0].arrayBuffer()
+          : undefined
+      const file2 =
+        fileRef2?.current?.files?.length !== 0
+          ? await fileRef2?.current?.files?.[0].arrayBuffer()
+          : undefined
+      const file3 =
+        fileRef3?.current?.files?.length !== 0
+          ? await fileRef3?.current?.files?.[0].arrayBuffer()
+          : undefined
+      const file4 =
+        fileRef4?.current?.files?.length !== 0
+          ? await fileRef4?.current?.files?.[0].arrayBuffer()
+          : undefined
+      const file5 =
+        fileRef5?.current?.files?.length !== 0
+          ? await fileRef5?.current?.files?.[0].arrayBuffer()
+          : undefined
+      const file6 =
+        fileRef6?.current?.files?.length !== 0
+          ? await fileRef6?.current?.files?.[0].arrayBuffer()
+          : undefined
+
+      const files = [file1, file2, file3, file4, file5, file6]
+      const results = await uploadToImgur(files)
+      const fileUrls = getFileUrls(results)
+      console.log(fileUrls)
     } catch (e) {
       console.error(e)
     }
@@ -111,7 +144,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   }
   return (
     <div css={forAdopt}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} encType='multipart/form-data'>
         <div className='gridBox'>
           <div>
             <label>Name of your cat:</label>

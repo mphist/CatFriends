@@ -3,3 +3,4 @@ packages/server/.env
 packages/.vscode
 packages/server/node_modules
 packages/yarn-error.log
+packages/web/src/keys

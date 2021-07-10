@@ -81,7 +81,8 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start-ori": "node scripts/start.js",
+    "start": "node scripts/start.js --host 0:0:0:0",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
