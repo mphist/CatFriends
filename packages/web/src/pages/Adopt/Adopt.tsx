@@ -1,7 +1,9 @@
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from 'react'
+import { useSearchState } from '../../atoms/search'
 import BreedSelector from '../../components/BreedSelector'
-import client from '../../lib/api/client'
+import Search from '../../components/Search'
+import searchCats from '../../lib/api/searchCats'
 
 type AdoptProps = {}
 
@@ -14,23 +16,20 @@ export default function Adopt({}: AdoptProps) {
   const [gender, setGender] = useState<string | undefined>(undefined)
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
   const [validationPassed, setValidationPassed] = useState(false)
+  // const [searchResults, setSearchResults] = useState<Result[] | null>(null)
+  const [searchResults, setSearchResults] = useSearchState()
 
   const ageRef = useRef<HTMLInputElement | null>(null)
+
+  const fields = { city, country, gender, age, breed, vaccination, spayNeuter }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     // search in db
-    const results = await client.post('/cat/search', {
-      city,
-      country,
-      gender,
-      age,
-      breed,
-      vaccination,
-      spayNeuter,
-    })
-    console.log(results)
+    const results = await searchCats(fields)
+
+    setSearchResults(results.data)
   }
 
   useEffect(() => {
@@ -152,6 +151,7 @@ export default function Adopt({}: AdoptProps) {
           Search
         </button>
       </form>
+      {searchResults && <Search fields={fields} results={searchResults} />}
     </div>
   )
 }

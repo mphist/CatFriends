@@ -8,7 +8,8 @@
     "age": { "type": "string" },
     "breed": { "type": "string" },
     "vaccinated": { "type": "string" },
-    "spayedOrNeutered": { "type": "string" }
+    "spayedOrNeutered": { "type": "string" },
+    "offset": { "type": "number" }
   },
   "required": ["city", "country"]
 }

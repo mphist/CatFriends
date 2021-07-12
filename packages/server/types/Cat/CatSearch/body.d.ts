@@ -13,5 +13,6 @@ export interface CatSearchBody {
   breed?: string;
   vaccinated?: string;
   spayedOrNeutered?: string;
+  offset?: number;
   [k: string]: unknown;
 }

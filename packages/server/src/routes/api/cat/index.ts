@@ -154,6 +154,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
         breed,
         vaccinated,
         spayedOrNeutered,
+        offset,
       } = request.body
 
       // normalize data
@@ -166,6 +167,8 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
 
       try {
         const res = await fastify.prisma.cat.findMany({
+          skip: offset ?? 0,
+          take: 5,
           where: {
             city: normalizedData.city,
             country,

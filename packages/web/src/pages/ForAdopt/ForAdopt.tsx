@@ -8,7 +8,7 @@ import client from '../../lib/api/client'
 import BreedSelector from '../../components/BreedSelector'
 import UploadFileContainer from '../../components/UploadFileContainer'
 import getFileUrls from './getFileUrls'
-import uploadToImgur from '../../lib/uploadToImgur'
+import uploadToImgur from '../../lib/api/uploadToImgur'
 
 type ForAdoptProps = {}
 
@@ -368,6 +368,7 @@ const uploadFile = css`
       } */
       img {
         max-width: 5rem;
+        max-height: 5rem;
       }
 
       #fileWrapper {
