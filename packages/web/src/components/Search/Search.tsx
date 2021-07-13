@@ -2,11 +2,12 @@ import { css } from '@emotion/react'
 import { useEffect, useMemo, useRef } from 'react'
 import { useSearchState } from '../../atoms/search'
 import searchCats, { SearchFields } from '../../lib/api/searchCats'
+import splitToUppercase from '../../lib/splitToUppercase'
 import Card from '../Card'
 
 export type SearchProps = {
   fields: SearchFields
-  results: Result[]
+  results: Result[] | null
 }
 
 export type Result = {
@@ -25,21 +26,52 @@ export type Result = {
   vaccinated: boolean
 }
 
-function Search({ fields, results }: SearchProps) {
+function Search({
+  fields,
+  results,
+  cityName,
+}: SearchProps & { cityName: string }) {
   const ref = useRef<HTMLDivElement>(null)
-  const [searchResults, setSearchResults] = useSearchState()
+  const [searchState, setSearchState] = useSearchState()
+
   const observer = useMemo(
     () =>
       new IntersectionObserver((entries) => {
         entries.forEach(async (entry) => {
           if (entry.isIntersecting) {
-            const results = await searchCats(fields, 5)
-            const data = results.data
-            if (searchResults) setSearchResults(searchResults.concat(data))
+            if (!searchState.lastPage) {
+              // fetch the next 5 cats from db
+              setSearchState({ ...searchState, loading: true })
+              const results = await searchCats(fields, 5 * searchState.pageNum)
+              const data = results.data
+
+              if (!data.length) {
+                setSearchState({
+                  ...searchState,
+                  loading: false,
+                  lastPage: true,
+                })
+                return
+              }
+
+              if (
+                searchState &&
+                searchState.result &&
+                searchState.result.length
+              ) {
+                const newResults = searchState.result.concat(data)
+                setSearchState({
+                  ...searchState,
+                  result: newResults,
+                  loading: false,
+                  pageNum: searchState.pageNum + 1,
+                })
+              }
+            }
           }
         })
       }),
-    [fields, setSearchResults]
+    [fields, setSearchState, searchState]
   )
 
   useEffect(() => {
@@ -53,14 +85,30 @@ function Search({ fields, results }: SearchProps) {
         observer.unobserve(el)
       }
     }
-  }, []) // empty dependency array because of an infinite loop
+  }, [results, observer, fields])
+
+  console.log(searchState)
 
   return (
     <div css={searchResultsWrapper}>
-      {results.map((result: Result) => (
+      {results?.map((result: Result) => (
         <Card key={result.id} result={result} />
       ))}
       <div ref={ref} />
+      {!searchState.loading && searchState.lastPage && (
+        <div>
+          <br />
+          {results?.length ? (
+            <p>{`You've seen all the cats we have in ${splitToUppercase(
+              cityName
+            )}. Check again later for new cats.`}</p>
+          ) : (
+            <p>{`Looks like we don't have any cats in ${splitToUppercase(
+              cityName
+            )} yet. Check again later for new cats.`}</p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

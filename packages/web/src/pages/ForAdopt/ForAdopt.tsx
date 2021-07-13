@@ -9,6 +9,7 @@ import BreedSelector from '../../components/BreedSelector'
 import UploadFileContainer from '../../components/UploadFileContainer'
 import getFileUrls from './getFileUrls'
 import uploadToImgur from '../../lib/api/uploadToImgur'
+import { spinner } from '../../assets/images'
 
 type ForAdoptProps = {}
 
@@ -135,6 +136,7 @@ export default function ForAdopt({}: ForAdoptProps) {
       console.error(e)
     }
   }
+
   return (
     <div css={forAdopt}>
       <form onSubmit={onSubmit} encType='multipart/form-data'>
@@ -302,7 +304,9 @@ export default function ForAdopt({}: ForAdoptProps) {
       </form>
       <Overlay show={overlay.show}>
         {loading ? (
-          <div css={loadingMsg}>Please wait...</div>
+          <div css={loadingMsg}>
+            <img src={spinner} alt='spinner' />
+          </div>
         ) : (
           <div css={confirmMsg}>
             <h4>Your cat has been registered for adoption</h4>
@@ -362,10 +366,6 @@ const uploadFile = css`
       align-items: center;
       padding: 0;
 
-      /* img {
-        max-width: 7rem;
-        overflow: hidden;
-      } */
       img {
         max-width: 5rem;
         max-height: 5rem;
@@ -400,6 +400,22 @@ const loadingMsg = css`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  img {
+    width: 3.5rem;
+    height: 3.5rem;
+    animation: spin 1.25s infinite ease-in-out;
+  }
 `
 
 const confirmMsg = css`

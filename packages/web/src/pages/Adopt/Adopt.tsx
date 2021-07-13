@@ -17,7 +17,8 @@ export default function Adopt({}: AdoptProps) {
   const [spayNeuter, setSpayNeuter] = useState<string | undefined>(undefined)
   const [validationPassed, setValidationPassed] = useState(false)
   // const [searchResults, setSearchResults] = useState<Result[] | null>(null)
-  const [searchResults, setSearchResults] = useSearchState()
+  const [searchState, setSearchState] = useSearchState()
+  const [cityName, setCityName] = useState('')
 
   const ageRef = useRef<HTMLInputElement | null>(null)
 
@@ -25,11 +26,21 @@ export default function Adopt({}: AdoptProps) {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setCityName(city)
     // search in db
+    setSearchState({
+      ...searchState,
+      loading: true,
+      lastPage: false,
+      pageNum: 1,
+    })
     const results = await searchCats(fields)
-
-    setSearchResults(results.data)
+    setSearchState({
+      result: results.data,
+      pageNum: 1,
+      loading: false,
+      lastPage: false,
+    })
   }
 
   useEffect(() => {
@@ -37,9 +48,9 @@ export default function Adopt({}: AdoptProps) {
   }, [])
 
   useEffect(() => {
-    if (city) setValidationPassed(true)
+    if (city && country) setValidationPassed(true)
     else setValidationPassed(false)
-  }, [city])
+  }, [city, country])
 
   return (
     <div css={adopt}>
@@ -151,7 +162,13 @@ export default function Adopt({}: AdoptProps) {
           Search
         </button>
       </form>
-      {searchResults && <Search fields={fields} results={searchResults} />}
+      {searchState && (
+        <Search
+          fields={fields}
+          cityName={cityName}
+          results={searchState.result}
+        />
+      )}
     </div>
   )
 }

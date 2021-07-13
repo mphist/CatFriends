@@ -50,8 +50,8 @@ function splitToUpperCase(str: string) {
     (part) =>
       (string =
         string === ''
-          ? part[0].toUpperCase() + part.slice(1)
-          : string + ' ' + part[0].toUpperCase() + part.slice(1))
+          ? part[0]?.toUpperCase() + part.slice(1)
+          : string + ' ' + part[0]?.toUpperCase() + part.slice(1))
   )
   return string
 }

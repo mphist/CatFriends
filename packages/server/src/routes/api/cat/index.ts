@@ -187,6 +187,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
             },
           },
         })
+
         reply.send(res)
       } catch (e) {
         console.log(e)
