@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import { paw } from '../../assets/images'
+import splitToUpperCase from '../../lib/splitToUppercase'
 import { Result } from '../Search/Search'
 
 type CardProps = {
@@ -33,6 +34,9 @@ export default function Card({ result }: CardProps) {
             {age > 12 ? age / 12 + ' year(s)' : age + ' month(s)'}
           </p>
           <p>
+            <span>Breed:</span> {splitToUpperCase(breed)}
+          </p>
+          <p>
             <span>Sex:</span> {gender[0]}
           </p>
           <p>
@@ -57,7 +61,7 @@ export default function Card({ result }: CardProps) {
 const imageSection = css`
   cursor: pointer;
   width: 40%;
-  height: 21rem;
+  height: 23rem;
   img {
     width: 100%;
     height: 100%;
@@ -68,9 +72,10 @@ const imageSection = css`
 const textSection = css`
   cursor: pointer;
   width: 60%;
-  height: 20rem;
+  height: 22rem;
   padding: 0.5rem;
   background: #eaeaea;
+  border-radius: 0 0.5rem 0.5rem 0;
   div {
     padding: 0 1rem;
     height: 16rem;

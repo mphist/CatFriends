@@ -105,7 +105,9 @@ function Search({
           ) : (
             <p>{`Looks like we don't have any cats in ${splitToUppercase(
               cityName
-            )} yet. Check again later for new cats.`}</p>
+            )} ${
+              fields.breed ? 'that match your selections yet' : 'yet'
+            }. Check again later for new cats.`}</p>
           )}
         </div>
       )}

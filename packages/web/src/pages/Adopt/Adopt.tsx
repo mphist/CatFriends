@@ -45,6 +45,12 @@ export default function Adopt({}: AdoptProps) {
 
   useEffect(() => {
     ageRef.current?.focus()
+    setSearchState({
+      result: null,
+      loading: false,
+      lastPage: false,
+      pageNum: 1,
+    })
   }, [])
 
   useEffect(() => {
