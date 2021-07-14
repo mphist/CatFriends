@@ -7,68 +7,6 @@ import CatRegisterBodySchema from '../../../schemas/Cat/CatRegister/body.json'
 import CatSearchBodySchema from '../../../schemas/Cat/CatSearch/body.json'
 
 const catRoute: FastifyPluginCallback = (fastify, options, done) => {
-  /*
-    POST /api/cat/upload_imgur
-    Upload images/videos to imgur
-  */
-
-  // fastify.post<{ Body: UploadImgurBody }>(
-  //   '/upload_imgur',
-  //   {
-  //     schema: {
-  //       body: UploadImgurBodySchema,
-  //     },
-  //   },
-  //   async (request, reply) => {
-  //     const { files } = request.body
-
-  //     const file1 = (files as File[])[0]
-  //     console.log('heres the first file', file1)
-
-  //     const res = await axios.post(
-  //       'https://api.imgur.com/3/image',
-  //       {
-  //         image: files,
-  //         title: 'test title',
-  //         description: 'test description',
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: 'Bearer f4a41751c264b6d62425472716d8369e9ca4e761',
-  //         },
-  //       }
-  //     )
-  //     console.log('response from imgur', res)
-
-  //     if (files && files.length !== 0) {
-  //       files.forEach(async (file) => {
-  //         console.log(file)
-  //         try {
-  //           const res = await axios.post(
-  //             'https://api.imgur.com/3/image',
-  //             {
-  //               image: file,
-  //               title: 'test title',
-  //               description: 'test description',
-  //             },
-  //             {
-  //               headers: {
-  //                 Authorization:
-  //                   'Bearer f4a41751c264b6d62425472716d8369e9ca4e761',
-  //               },
-  //             }
-  //           )
-  //           console.log('response from imgur', res)
-  //         } catch (e) {
-  //           console.log(e.message)
-  //         }
-  //       })
-  //     }
-
-  //     reply.send('ok')
-  //   }
-  // )
-
   /* 
     POST /api/cat/register
     Register a cat for adoption
