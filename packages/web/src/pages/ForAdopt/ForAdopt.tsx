@@ -1,6 +1,5 @@
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { overlayState } from '../../atoms/overlay'
 import Overlay from '../../components/Overlay/Overlay'
@@ -9,12 +8,12 @@ import BreedSelector from '../../components/BreedSelector'
 import UploadFileContainer from '../../components/UploadFileContainer'
 import getFileUrls from './getFileUrls'
 import uploadToImgur from '../../lib/api/uploadToImgur'
-import { spinner } from '../../assets/images'
+import Spinner from '../../components/Spinner'
+import ConfirmBox from '../../components/ConfirmBox'
 
 type ForAdoptProps = {}
 
 export default function ForAdopt({}: ForAdoptProps) {
-  const history = useHistory()
   const [name, setName] = useState('')
   const [breed, setBreed] = useState<string | undefined>(undefined)
   const [age, setAge] = useState('')
@@ -304,23 +303,12 @@ export default function ForAdopt({}: ForAdoptProps) {
       </form>
       <Overlay show={overlay.show}>
         {loading ? (
-          <div css={loadingMsg}>
-            <img src={spinner} alt='spinner' />
-          </div>
+          <Spinner />
         ) : (
-          <div css={confirmMsg}>
-            <h4>Your cat has been registered for adoption</h4>
-            <button
-              onClick={() => {
-                setOverlay({ show: false, disableScrolling: false })
-                history.replace('/')
-                document.body.scrollTop = 0 // For Safari
-                document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-              }}
-            >
-              OK
-            </button>
-          </div>
+          <ConfirmBox
+            message='Your cat has been registered for adoption'
+            redirect={true}
+          />
         )}
       </Overlay>
     </div>
@@ -392,56 +380,6 @@ const uploadFile = css`
           width: 7rem;
         }
       }
-    }
-  }
-`
-
-const loadingMsg = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  img {
-    width: 3.5rem;
-    height: 3.5rem;
-    animation: spin 1.25s infinite ease-in-out;
-  }
-`
-
-const confirmMsg = css`
-  background: white;
-  height: 5rem;
-  width: 30rem;
-  margin: 0 auto;
-  position: relative;
-  top: 25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  button {
-    width: 3rem;
-    height: 3rem;
-    padding: 0.3rem;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    background: #7ecae0;
-    color: white;
-    outline: none;
-    border: none;
-    &:hover {
-      cursor: pointer;
     }
   }
 `

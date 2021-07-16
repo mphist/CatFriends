@@ -1,8 +1,12 @@
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from 'react'
+import { useOverlayState } from '../../atoms/overlay'
 import { useSearchState } from '../../atoms/search'
 import BreedSelector from '../../components/BreedSelector'
+import ConfirmBox from '../../components/ConfirmBox'
+import Overlay from '../../components/Overlay'
 import Search from '../../components/Search'
+import Spinner from '../../components/Spinner'
 import searchCats from '../../lib/api/searchCats'
 
 type AdoptProps = {}
@@ -18,6 +22,7 @@ export default function Adopt({}: AdoptProps) {
   const [validationPassed, setValidationPassed] = useState(false)
   // const [searchResults, setSearchResults] = useState<Result[] | null>(null)
   const [searchState, setSearchState] = useSearchState()
+  const [overlay, setOverlay] = useOverlayState()
   const [cityName, setCityName] = useState('')
 
   const ageRef = useRef<HTMLInputElement | null>(null)
@@ -34,13 +39,25 @@ export default function Adopt({}: AdoptProps) {
       lastPage: false,
       pageNum: 1,
     })
-    const results = await searchCats(fields)
-    setSearchState({
-      result: results.data,
-      pageNum: 1,
-      loading: false,
-      lastPage: false,
-    })
+    setOverlay({ show: true, disableScrolling: true })
+    try {
+      const results = await searchCats(fields)
+      setOverlay({ show: false, disableScrolling: false })
+      setSearchState({
+        result: results.data,
+        pageNum: 1,
+        loading: false,
+        lastPage: false,
+      })
+    } catch (e) {
+      setSearchState({
+        ...searchState,
+        loading: false,
+      })
+      if (e.message === 'Network Error') {
+        setOverlay({ show: true, disableScrolling: true })
+      }
+    }
   }
 
   useEffect(() => {
@@ -175,6 +192,13 @@ export default function Adopt({}: AdoptProps) {
           results={searchState.result}
         />
       )}
+      <Overlay show={overlay.show}>
+        {searchState.loading ? (
+          <Spinner />
+        ) : (
+          <ConfirmBox message='Something went wrong. We will be right back!' />
+        )}
+      </Overlay>
     </div>
   )
 }

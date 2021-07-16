@@ -87,8 +87,6 @@ function Search({
     }
   }, [results, observer, fields])
 
-  console.log(searchState)
-
   return (
     <div css={searchResultsWrapper}>
       {results?.map((result: Result) => (
