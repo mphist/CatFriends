@@ -125,6 +125,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
               },
             },
           },
+          orderBy: { createdAt: 'desc' },
         })
 
         reply.send(res)
