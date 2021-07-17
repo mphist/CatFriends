@@ -4,6 +4,7 @@ type DataToNormalize = {
   vaccinated?: string
   spayedOrNeutered?: string
   name?: string
+  breed?: string
 }
 
 type NormalizedData = {
@@ -12,6 +13,7 @@ type NormalizedData = {
   vaccinated?: boolean
   spayedOrNeutered?: boolean
   name?: string
+  breed?: string
 }
 
 export default function normalizeData({
@@ -20,6 +22,7 @@ export default function normalizeData({
   vaccinated,
   spayedOrNeutered,
   name,
+  breed,
 }: DataToNormalize) {
   const normalizedData: NormalizedData = {
     city: '',
@@ -27,6 +30,7 @@ export default function normalizeData({
     vaccinated: false,
     spayedOrNeutered: false,
     name: '',
+    breed: '',
   }
   normalizedData.city = splitToUpperCase(city)
   normalizedData.age = age ? convertToMonths(age) : undefined
@@ -39,6 +43,7 @@ export default function normalizeData({
       ? true
       : false
   normalizedData.name = name ? splitToUpperCase(name) : undefined
+  normalizedData.breed = breed === '' ? undefined : breed
 
   return normalizedData
 }

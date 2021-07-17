@@ -30,7 +30,8 @@ function Search({
   fields,
   results,
   cityName,
-}: SearchProps & { cityName: string }) {
+  breedName,
+}: SearchProps & { cityName: string; breedName: string | undefined }) {
   const ref = useRef<HTMLDivElement>(null)
   const [searchState, setSearchState] = useSearchState()
 
@@ -44,7 +45,6 @@ function Search({
               setSearchState({ ...searchState, loading: true })
               const results = await searchCats(fields, 5 * searchState.pageNum)
               const data = results.data
-
               if (!data.length) {
                 setSearchState({
                   ...searchState,
@@ -53,7 +53,6 @@ function Search({
                 })
                 return
               }
-
               if (
                 searchState &&
                 searchState.result &&
@@ -85,7 +84,7 @@ function Search({
         observer.unobserve(el)
       }
     }
-  }, [results, observer, fields])
+  }, [results, observer])
 
   return (
     <div css={searchResultsWrapper}>
@@ -104,7 +103,7 @@ function Search({
             <p>{`Looks like we don't have any cats in ${splitToUppercase(
               cityName
             )} ${
-              fields.breed ? 'that match your selections yet' : 'yet'
+              breedName ? 'that match your selections yet' : 'yet'
             }. Check again later for new cats.`}</p>
           )}
         </div>

@@ -9,11 +9,11 @@ function BreedSelector({ breed, setBreed }: BreedSelectorProps) {
       name='breed'
       id='breed'
       value={breed}
-      onChange={(e) => setBreed!(e.target.value)}
+      onChange={(e) => {
+        setBreed!(e.target.value)
+      }}
     >
-      <option value='' selected disabled hidden>
-        Choose...
-      </option>
+      <option value=''>Not specified</option>
       <option value='abyssinian'>Abyssinian</option>
       <option value='american-bobtail'>American Bobtail</option>
       <option value='american-curl'>American Curl</option>

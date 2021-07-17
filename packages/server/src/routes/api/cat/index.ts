@@ -101,6 +101,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
         age,
         vaccinated,
         spayedOrNeutered,
+        breed,
       })
 
       try {
@@ -111,7 +112,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
             city: normalizedData.city,
             country,
             gender,
-            breed,
+            breed: normalizedData.breed,
             age: normalizedData.age,
             vaccinated: normalizedData.vaccinated,
             spayed_neutered: normalizedData.spayedOrNeutered,

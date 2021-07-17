@@ -24,6 +24,7 @@ export default function Adopt({}: AdoptProps) {
   const [searchState, setSearchState] = useSearchState()
   const [overlay, setOverlay] = useOverlayState()
   const [cityName, setCityName] = useState('')
+  const [breedName, setBreedName] = useState<string | undefined>('')
 
   const ageRef = useRef<HTMLInputElement | null>(null)
 
@@ -32,9 +33,10 @@ export default function Adopt({}: AdoptProps) {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setCityName(city)
+    setBreedName(breed)
     // search in db
     setSearchState({
-      ...searchState,
+      result: null,
       loading: true,
       lastPage: false,
       pageNum: 1,
@@ -185,10 +187,11 @@ export default function Adopt({}: AdoptProps) {
           Search
         </button>
       </form>
-      {searchState && (
+      {searchState.result && (
         <Search
           fields={fields}
           cityName={cityName}
+          breedName={breedName}
           results={searchState.result}
         />
       )}
