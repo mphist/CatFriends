@@ -39,7 +39,7 @@ function Search({
 }: SearchProps & { cityName: string; breedName: string | undefined }) {
   const ref = useRef<HTMLDivElement>(null)
   const [searchState, setSearchState] = useSearchState()
-  const [showModal, setShowModal] = useModalState()
+  const [showModal] = useModalState()
   const cat = useRecoilValue(catState)
 
   const observer = useMemo(
@@ -95,8 +95,8 @@ function Search({
 
   return (
     <div css={searchResultsWrapper}>
-      {results?.map((result: Result) => (
-        <Card key={result.id} result={result} />
+      {results?.map((result: Result, idx) => (
+        <Card key={idx} result={result} />
       ))}
       <div ref={ref} />
       {!searchState.loading && searchState.lastPage && (
