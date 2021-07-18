@@ -1,5 +1,8 @@
 import { css } from '@emotion/react'
 import { paw } from '../../assets/images'
+import { useCatState } from '../../atoms/cat'
+import { useModalState } from '../../atoms/modal'
+import { useOverlayState } from '../../atoms/overlay'
 import splitToUpperCase from '../../lib/splitToUppercase'
 import { Result } from '../Search/Search'
 
@@ -9,6 +12,7 @@ type CardProps = {
 
 export default function Card({ result }: CardProps) {
   const {
+    id,
     age,
     breed,
     city,
@@ -21,8 +25,18 @@ export default function Card({ result }: CardProps) {
     vaccinated,
   } = result
 
+  const [, setShowModal] = useModalState()
+  const [, setOverlayState] = useOverlayState()
+  const [, setCatState] = useCatState()
+
+  const renderCatProfile = () => {
+    setCatState({ ...result, breed: splitToUpperCase(breed) })
+    setShowModal(true)
+    setOverlayState({ show: false, disableScrolling: true })
+  }
+
   return (
-    <div css={card}>
+    <div css={card} onClick={renderCatProfile}>
       <div css={imageSection}>
         <img src={media[0] || paw} alt={`${name}`} />
       </div>

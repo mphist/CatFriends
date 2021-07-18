@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import { useModalState } from '../../atoms/modal'
+import { useOverlayState } from '../../atoms/overlay'
 import Icon from '../Icon'
 
 type ModalProps = {
@@ -9,17 +10,19 @@ type ModalProps = {
 
 export default function Modal({ children, show }: ModalProps) {
   const [, setShowModal] = useModalState()
+  const [, setOverlayState] = useOverlayState()
 
-  const onClick = () => {
+  const closeModal = () => {
     setShowModal(false)
+    setOverlayState({ show: false, disableScrolling: false })
   }
 
   if (show)
     return (
       <div css={modal}>
-        <div className="children">{children}</div>
-        <div css={btn} onClick={onClick}>
-          <Icon name="close_button" css={closeButton} />
+        <div className='children'>{children}</div>
+        <div css={btn} onClick={closeModal}>
+          <Icon name='close_button' css={closeButton} />
         </div>
       </div>
     )
@@ -27,7 +30,6 @@ export default function Modal({ children, show }: ModalProps) {
 }
 
 const closeButton = css`
-  margin-top: 2rem;
   &:hover {
     cursor: pointer;
   }
@@ -46,8 +48,9 @@ const modal = css`
   }
 `
 const btn = css`
-  width: 5%;
-  height: 2rem;
+  margin-top: 2rem;
+  width: 3rem;
+  height: 3rem;
   button {
     height: 2rem;
   }

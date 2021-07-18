@@ -1,35 +1,59 @@
 import { css } from '@emotion/react'
-import { doris } from '../../assets/images'
+import { doris, paw } from '../../assets/images'
+import { Result } from '../Search/Search'
 
-type CatProfileProps = {}
+type CatProfileProps = {
+  data: Result
+}
 
-export default function CatProfile({}: CatProfileProps) {
+export default function CatProfile({ data }: CatProfileProps) {
+  const {
+    age,
+    breed,
+    city,
+    country,
+    description,
+    gender,
+    media,
+    name,
+    spayed_neutered,
+    vaccinated,
+  } = data
   return (
     <div css={catProfile}>
       <div css={imageSection}>
-        <img src={doris} alt="doris" />
+        <img src={media[0] || paw} alt='doris' />
       </div>
       <div css={textSection}>
-        <h2>Doris</h2>
-        <br />
-        <p>
-          <strong>Age:</strong> {`3 months old`}
-        </p>
-        <p>
-          <strong>Sex:</strong> {`F`}
-        </p>
-        <p>
-          <strong>Personality:</strong> {`Playful and crazy`}
-        </p>
-        <p>
-          <strong>Location:</strong> {`Toronto`}
-        </p>
-        <p>
-          <strong>Spayed/Neutered:</strong> {`Yes`}
-        </p>
-        <p>
-          <strong>Vaccines:</strong> {`Yes`}
-        </p>
+        <h2>{name}</h2>
+        <div>
+          <p>
+            <strong>Age:</strong> {`${age} month(s)`}
+          </p>
+          <p>
+            <strong>Breed:</strong> {breed}
+          </p>
+          <p>
+            <strong>Gender:</strong> {gender}
+          </p>
+          <p>
+            <strong>City:</strong> {city}
+          </p>
+          <p>
+            <strong>Country:</strong> {country}
+          </p>
+          <p>
+            <strong>Spayed/Neutered:</strong> {spayed_neutered ? 'Yes' : 'No'}
+          </p>
+          <p>
+            <strong>Vaccines:</strong> {vaccinated ? 'Yes' : 'No'}
+          </p>
+          <p>
+            <strong>Description: </strong>
+            {description}
+            {/* {`hi\n my name is\n game changer \n i will change your game \n like nobody else blablablalblkjsa sajdfkl sdaj b jklsadjfk lsaje sad fklsdafj klsaejf lksadf jklasdf jklase sadf jkls f sajkdlfj klsa fdsjklfs dfjklsaef jklsadfj klasd f jsakldfj klsdjfkljsalkdfjlsajdfljsdlfkklsajfl sad kfjlsdajfl ksjadflk jsadklf jsdklf sakldfj ksldafj klsa f jklsdj kflj llllll`} */}
+          </p>
+        </div>
       </div>
     </div>
   )
@@ -37,17 +61,33 @@ export default function CatProfile({}: CatProfileProps) {
 
 const imageSection = css`
   width: 50%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
-    width: 40rem;
-    object-fit: cover;
+    height: 50%;
+    width: 50%;
+    object-fit: fill;
   }
 `
 
 const textSection = css`
-  margin-top: 10rem;
+  width: 35rem;
+  height: 30rem;
+  line-height: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  div {
+    overflow-y: auto;
+    padding: 1rem;
+  }
   h2 {
     text-align: center;
+  }
+  p {
+    margin-left: 6.2rem;
+    text-indent: -6.2rem;
   }
 `
 

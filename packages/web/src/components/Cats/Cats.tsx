@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import { doris, nala, snow, lazy, cotton } from '../../assets/images'
 import { useModalState } from '../../atoms/modal'
+import { useOverlayState } from '../../atoms/overlay'
 import CatProfile from '../CatProfile'
 import Modal from '../Modal'
 
@@ -21,34 +22,34 @@ export default function Cats({}: CatsProps) {
   // )
 
   const [showModal, setShowModal] = useModalState()
+  const [, setOverlayState] = useOverlayState()
 
   const onClick = () => {
+    setOverlayState({ show: false, disableScrolling: true })
     setShowModal(true)
   }
 
   return (
     <div css={catsBlock}>
       <div css={catsGrid}>
-        <img src={nala} alt="nala" onClick={onClick} />
-        <img src={doris} alt="doris" onClick={onClick} />
-        <img src={snow} alt="snow" onClick={onClick} />
-        <img src={lazy} alt="lazy" onClick={onClick} />
-        <img src={cotton} alt="cotton" onClick={onClick} />
-        <img src={nala} alt="nala" onClick={onClick} />
-        <img src={doris} alt="doris" onClick={onClick} />
-        <img src={snow} alt="snow" onClick={onClick} />
-        <img src={lazy} alt="lazy" onClick={onClick} />
-        <img src={cotton} alt="cotton" onClick={onClick} />
-        <img src={nala} alt="nala" onClick={onClick} />
-        <img src={doris} alt="doris" onClick={onClick} />
-        <img src={snow} alt="snow" onClick={onClick} />
-        <img src={lazy} alt="lazy" onClick={onClick} />
-        <img src={cotton} alt="cotton" onClick={onClick} />
-        <img src={nala} alt="nala" onClick={onClick} />
+        <img src={nala} alt='nala' onClick={onClick} />
+        <img src={doris} alt='doris' onClick={onClick} />
+        <img src={snow} alt='snow' onClick={onClick} />
+        <img src={lazy} alt='lazy' onClick={onClick} />
+        <img src={cotton} alt='cotton' onClick={onClick} />
+        <img src={nala} alt='nala' onClick={onClick} />
+        <img src={doris} alt='doris' onClick={onClick} />
+        <img src={snow} alt='snow' onClick={onClick} />
+        <img src={lazy} alt='lazy' onClick={onClick} />
+        <img src={cotton} alt='cotton' onClick={onClick} />
+        <img src={nala} alt='nala' onClick={onClick} />
+        <img src={doris} alt='doris' onClick={onClick} />
+        <img src={snow} alt='snow' onClick={onClick} />
+        <img src={lazy} alt='lazy' onClick={onClick} />
+        <img src={cotton} alt='cotton' onClick={onClick} />
+        <img src={nala} alt='nala' onClick={onClick} />
       </div>
-      <Modal show={showModal}>
-        <CatProfile />
-      </Modal>
+      <Modal show={showModal}>{/* <CatProfile /> */}</Modal>
     </div>
   )
 }

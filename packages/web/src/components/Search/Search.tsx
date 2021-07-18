@@ -1,9 +1,14 @@
 import { css } from '@emotion/react'
 import { useEffect, useMemo, useRef } from 'react'
+import { useRecoilValue } from 'recoil'
+import { catState } from '../../atoms/cat'
+import { useModalState } from '../../atoms/modal'
 import { useSearchState } from '../../atoms/search'
 import searchCats, { SearchFields } from '../../lib/api/searchCats'
 import splitToUppercase from '../../lib/splitToUppercase'
 import Card from '../Card'
+import CatProfile from '../CatProfile'
+import Modal from '../Modal'
 
 export type SearchProps = {
   fields: SearchFields
@@ -16,12 +21,12 @@ export type Result = {
   breed: string
   city: string
   country: string
-  createdAt: string
+  createdAt?: string
   description: string
   gender: string
   media: string[]
   name: string
-  owner: { displayname: string; photoUrl: string }
+  owner?: { displayname: string; photoUrl: string }
   spayed_neutered: boolean
   vaccinated: boolean
 }
@@ -34,6 +39,8 @@ function Search({
 }: SearchProps & { cityName: string; breedName: string | undefined }) {
   const ref = useRef<HTMLDivElement>(null)
   const [searchState, setSearchState] = useSearchState()
+  const [showModal, setShowModal] = useModalState()
+  const cat = useRecoilValue(catState)
 
   const observer = useMemo(
     () =>
@@ -108,6 +115,9 @@ function Search({
           )}
         </div>
       )}
+      <Modal show={showModal}>
+        <CatProfile data={cat} />
+      </Modal>
     </div>
   )
 }
