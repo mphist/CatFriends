@@ -1,6 +1,7 @@
 import { atom, useRecoilState } from 'recoil'
+import { Result } from '../../components/Search/Search'
 
-export const catState = atom({
+export const catState = atom<Result>({
   key: 'catState',
   default: {
     id: '',

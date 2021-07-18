@@ -45,6 +45,7 @@ export default function ForAdopt({}: ForAdoptProps) {
   useEffect(() => {
     // on first render only
     nameRef?.current?.focus()
+    setOverlay({ show: false, disableScrolling: false })
   }, [])
 
   useEffect(() => {

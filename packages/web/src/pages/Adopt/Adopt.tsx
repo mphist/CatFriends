@@ -30,7 +30,7 @@ export default function Adopt({}: AdoptProps) {
 
   const fields = { city, country, gender, age, breed, vaccination, spayNeuter }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const search = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setCityName(city)
     setBreedName(breed)
@@ -70,6 +70,7 @@ export default function Adopt({}: AdoptProps) {
       lastPage: false,
       pageNum: 1,
     })
+    setOverlay({ show: false, disableScrolling: false })
   }, [])
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export default function Adopt({}: AdoptProps) {
 
   return (
     <div css={adopt}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={search}>
         <div className='gridBox'>
           <div>
             <label>Age:</label>

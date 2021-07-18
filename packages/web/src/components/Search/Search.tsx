@@ -26,7 +26,7 @@ export type Result = {
   gender: string
   media: string[]
   name: string
-  owner?: { displayname: string; photoUrl: string }
+  owner?: { displayname: string; photoUrl: string; email: string }
   spayed_neutered: boolean
   vaccinated: boolean
 }
@@ -39,7 +39,7 @@ function Search({
 }: SearchProps & { cityName: string; breedName: string | undefined }) {
   const ref = useRef<HTMLDivElement>(null)
   const [searchState, setSearchState] = useSearchState()
-  const [showModal] = useModalState()
+  const [showModal, setShowModal] = useModalState()
   const cat = useRecoilValue(catState)
 
   const observer = useMemo(
@@ -79,6 +79,10 @@ function Search({
       }),
     [fields, setSearchState, searchState]
   )
+
+  useEffect(() => {
+    setShowModal(false)
+  }, [])
 
   useEffect(() => {
     const el = ref.current

@@ -122,6 +122,7 @@ const catRoute: FastifyPluginCallback = (fastify, options, done) => {
               select: {
                 displayname: true,
                 photoUrl: true,
+                email: true,
               },
             },
           },
