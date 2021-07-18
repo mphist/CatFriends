@@ -1,4 +1,5 @@
 import { css } from '@emotion/react'
+import { useState } from 'react'
 import { doris, paw } from '../../assets/images'
 import { Result } from '../Search/Search'
 
@@ -20,10 +21,27 @@ export default function CatProfile({ data }: CatProfileProps) {
     vaccinated,
   } = data
 
+  const [idx, setIdx] = useState(0)
+
+  const changeDisplay = (e: any) => {
+    setIdx(e.target.id)
+  }
+
   return (
     <div css={catProfile}>
+      <div css={previewSection}>
+        {media.length > 1 &&
+          media.map((url, idx) => (
+            <img
+              id={idx.toString()}
+              src={url}
+              alt={`preview-${idx}`}
+              onClick={changeDisplay}
+            />
+          ))}
+      </div>
       <div css={imageSection}>
-        <img src={media[0] || paw} alt='doris' />
+        <img src={media[idx] || paw} alt={name} />
       </div>
       <div css={textSection}>
         <h2>{name}</h2>
@@ -60,14 +78,29 @@ export default function CatProfile({ data }: CatProfileProps) {
   )
 }
 
+const previewSection = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+
+  img {
+    margin: 0.2rem;
+    border: 1px solid #d0d0d0;
+    width: 99%;
+    cursor: pointer;
+  }
+`
+
 const imageSection = css`
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    height: 50%;
-    width: 50%;
+    max-height: 60%;
+    max-width: 60%;
     object-fit: fill;
   }
 `
